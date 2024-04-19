@@ -8,7 +8,7 @@ export default function Navbar() {
           <Link className="font-semibold" href={"/"}>HOME</Link>
         </li>
         <li>
-          <Link className="font-semibold" href={"/"}>ABOUT</Link>
+          <Link className="font-semibold" href={"/about"}>ABOUT</Link>
         </li>
         <li>
           <Link className="font-semibold" href={"/"}>NEWS</Link>

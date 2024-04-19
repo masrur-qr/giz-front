@@ -2,6 +2,7 @@
 // import "slick-carousel/slick/slick-theme.css";
 
 import About from "@/components/About/About";
+import Partners from "@/components/Partners/Partners";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "@/lib/dictionary";
 
@@ -13,9 +14,10 @@ export default async function Home({
   const { page } = await getDictionary(lang);
   return (
     <main>
-      <About />
       <h1>Home Page</h1>
       <h1>{page.home.title}</h1>
+      <About />
+      <Partners />
     </main>
   );
 }
