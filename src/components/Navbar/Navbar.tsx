@@ -11,10 +11,10 @@ export default function Navbar() {
           <Link className="font-semibold" href={"/about"}>ABOUT</Link>
         </li>
         <li>
-          <Link className="font-semibold" href={"/"}>NEWS</Link>
+          <Link className="font-semibold" href={"/news"}>NEWS</Link>
         </li>
         <li>
-          <Link className="font-semibold" href={"/"}>PROJECTS</Link>
+          <Link className="font-semibold" href={"/projects"}>PROJECTS</Link>
         </li>
         <li>
           <Link className="font-semibold" href={"/"}>CONTACT</Link>

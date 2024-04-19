@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function Partners() {
   return (
     <section className="my-[100px]">
-      <div className="wrapper">
+      <div className="wrapper__page">
         <h3 className="text-[24px] text-[#8D8D8D] font-bold uppercase text-center">
           Partners
         </h3>

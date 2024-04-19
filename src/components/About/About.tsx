@@ -1,7 +1,7 @@
 export default function About() {
   return (
     <section>
-      <div className="wrapper">
+      <div className="wrapper__page">
         <h3 className="text-center text-[#C30F08] text-[34px] font-bold uppercase mb-[50px]">
           Tajikistan
         </h3>

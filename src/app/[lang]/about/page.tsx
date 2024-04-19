@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <main>
-      <div className="wrapper">
+      <div className="wrapper__page">
         <div className="flex items-center justify-center my-[100px]">
           <Image src={BigLogo} alt="BigLogo" />
         </div>
