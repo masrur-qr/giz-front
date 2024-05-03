@@ -36,11 +36,11 @@ export const news_data: INews[] = [
       name: "qwdqw",
       description: "dqwdqw",
     },
-    location: {
-      coordinates: "21312312.3123.1231",
-      district: "salom",
-      village: "Dqwdwq",
-    },
+    // location: {
+    //   coordinates: "21312312.3123.1231",
+    //   district: "salom",
+    //   village: "Dqwdwq",
+    // },
     links: ["dqwqwdqw", "wdqdqwdq"],
     mediaFiles: [
       {

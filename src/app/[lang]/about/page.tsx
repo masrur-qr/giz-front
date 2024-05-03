@@ -12,7 +12,7 @@ export default function AboutPage() {
         </div>
         <div className="flex flex-col justify-start items-start gap-5 mb-[148px]">
           <p className="text-[18px] text-justify">
-            Association of Entrepreneurs of GBAO (hereafter "AE of GBAO") has
+            Association of Entrepreneurs of GBAO (hereafter &quot;AE of GBAO&quot;) has
             been established on 26th July 2023 to strengthen the economic
             opportunities of entrepreneurs, provide financial education and the
             basics of entrepreneurship to its members, access to financial and
@@ -20,7 +20,7 @@ export default function AboutPage() {
             the region.
           </p>
           <p className="text-[18px] text-justify">
-            The "AE of GBAO" fulfills its purpose by performing the following
+            The &quot;AE of GBAO&quot; fulfills its purpose by performing the following
             tasks: create development opportunities for members of the
             association, support the members of the association to participate
             at national and international professional fairs and exhibitions,
@@ -34,7 +34,7 @@ export default function AboutPage() {
           <p className="text-[18px] text-justify">
             The Association started its first activity by organizing the Pamir
             Invest Forum in August 2023. This event has brought together local
-            and foreign investors. The "AE of GBAO" has organized the Pamir
+            and foreign investors. The &quot;AE of GBAO&quot; has organized the Pamir
             Invest Forum 2023 in close cooperation with the regional government
             of GBAO and with financial support from international donor
             organizations, operating in the territory of the Republic of
@@ -42,7 +42,7 @@ export default function AboutPage() {
           </p>
           <p className="text-[18px] text-justify">
             The participants of the Pamir Invest Forum included business and
-            government representatives of the People's Republic of China, Taj
+            government representatives of the People&apos;s Republic of China, Taj
             Korea Company, LLC Sarez Capital, the Deputy Minister of Economic
             Development of the Russian Federation, the Ambassador of the United
             States of America in Tajikistan, and many others.

@@ -30,6 +30,11 @@ export default function NewsFilter() {
   const [date, setDate] = useState<Date>();
   const [to, setTo] = useState<Date>();
 
+  const handleFilter = () => {
+    console.log(date);
+    console.log(to);
+  };
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -129,7 +134,10 @@ export default function NewsFilter() {
             </SelectContent>
           </Select>
         </div>
-        <button className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]">
+        <button
+          onClick={handleFilter}
+          className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]"
+        >
           search
         </button>
       </div>

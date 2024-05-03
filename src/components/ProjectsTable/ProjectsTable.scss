@@ -1,0 +1,30 @@
+.project__table {
+  background-color: white;
+
+  .tr_main {
+    & > th:nth-child(1) {
+      background-color: #f9f9f9;
+      width: 300px;
+      height: 70px;
+    }
+    & > th:nth-child(2) {
+      background-color: #f9f9f9;
+      width: 300px;
+      height: 70px;
+    }
+    & > th:nth-child(3) {
+      background-color: #f9f9f9;
+      width: 300px;
+      height: 70px;
+    }
+    & > th:nth-child(4) {
+      background-color: #f9f9f9;
+      width: 190px;
+      height: 70px;
+    }
+  }
+
+  & > tbody tr td {
+    text-align: center;
+  }
+}

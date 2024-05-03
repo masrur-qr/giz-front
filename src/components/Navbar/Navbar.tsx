@@ -17,7 +17,7 @@ export default function Navbar() {
           <Link className="font-semibold" href={"/projects"}>PROJECTS</Link>
         </li>
         <li>
-          <Link className="font-semibold" href={"/"}>CONTACT</Link>
+          <Link className="font-semibold" href={"/admin-projects"}>CONTACT</Link>
         </li>
       </ul>
     </nav>

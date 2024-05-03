@@ -80,6 +80,11 @@
   margin-inline: auto;
 }
 
+.wrapper__page-flow {
+  max-width: 1150px;
+  margin-inline: auto;
+}
+
 .news__gradient {
   width: 100%;
   height: 100%;
