@@ -1,3 +1,4 @@
+import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
 import Logo from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
 
@@ -7,6 +8,7 @@ export default function Header() {
       <div className="wrapper__page flex items-center justify-between">
         <Logo />
         <Navbar />
+        <LanguageSwitch />
       </div>
     </header>
   );

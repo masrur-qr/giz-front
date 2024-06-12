@@ -1,33 +1,52 @@
+"use client";
 import { news_data } from "@/data/news";
 import { INews } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function NewsList() {
+  const [data, setData] = useState([]);
+
+  async function getNews() {
+    try {
+      const response = await fetch("http://127.0.0.1:9595/get/news");
+      const data = await response.json();
+      setData(data);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getNews();
+  }, []);
   return (
-    <section className="my-10">
-      {news_data.map((news: INews) => {
+    <section className="my-10 flex items-center gap-10 flex-wrap">
+      {data.map((news: INews) => {
         return (
           <div
-            key={news.id}
+            key={news.Id}
             className="w-[438px] h-[321px] border relative flex flex-col justify-end items-start rounded-[13px] px-[30px] py-[20px] news__card"
           >
-            <Image
-              src={news.bannerUrl}
-              alt={news.bannerUrl}
+            <img
+              src={`http://127.0.0.1:9595/get/static?path=Banners/${news.BannerUrl}`}
+              alt={news.BannerUrl}
               width={438}
               height={321}
               className="absolute top-0 left-0 w-full h-full object-cover rounded-[13px]"
             />
             <div className="relative z-[3] text-white">
               <Link
-                href={`/news/${news.id}`}
+                href={`/news/${news.Id}`}
                 className="text-[22px] font-bold line-clamp-2"
               >
-                {news.english.name}
+                {news.English.Name}
               </Link>
               <div className="flex items-center justify-between mt-3">
-                <p>Category</p>
+                <p>{news.Category}</p>
                 <p>25.07.2024</p>
               </div>
             </div>

@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Select,
@@ -35,6 +35,24 @@ export default function NewsFilter() {
     console.log(to);
   };
 
+  const [data, setData] = useState([]);
+
+  async function getNews() {
+    try {
+      const response = await fetch("http://127.0.0.1:9595/get/news");
+      const data = await response.json();
+      setData(data);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getNews();
+  }, []);
+  
   return (
     <section>
       <div className="flex items-center justify-between">

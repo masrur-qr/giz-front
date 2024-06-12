@@ -1,7 +1,7 @@
 import { Input } from "@/shadcn/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function EnglishNews() {
+export default function EnglishNews({ ref }: any) {
   return (
     <section className="mb-[100px]">
       <div className="flex items-center gap-[30px]">
@@ -21,6 +21,7 @@ export default function EnglishNews() {
             className="w-[400px]"
             type="text"
             placeholder="Type the new’s name..."
+            ref={ref}
           />
         </div>
         <div>

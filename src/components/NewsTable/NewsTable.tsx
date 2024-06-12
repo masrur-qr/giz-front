@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-table";
 import { makeData, Person } from "@/makeData";
 import { useEffect, useMemo, useReducer, useState } from "react";
-import { IProject } from "@/types";
+import { INews } from "@/types";
 
 //custom sorting logic for one of our enum columns
 const sortStatusFn: SortingFn<Person> = (rowA, rowB, _columnId) => {
@@ -23,39 +23,31 @@ const sortStatusFn: SortingFn<Person> = (rowA, rowB, _columnId) => {
   return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
 };
 
-export default function ProjectsTable() {
+export default function NewsTable() {
   const rerender = useReducer(() => ({}), {})[1];
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState<any>(null);
-
-  const handleCollapseAccordion = (index: number) => {
-    // setIsCollapsed(!isCollapsed);
-    setCurrentIndex(index);
-
-    console.log("index", index);
-  };
 
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = useMemo<ColumnDef<IProject>[]>(
+  const columns = useMemo<ColumnDef<INews>[]>(
     () => [
       {
         accessorKey: "firstName",
         cell: (info) => info.getValue(),
-        header: () => <span>Project name</span>,
+        header: () => <span>News title</span>,
         accessorFn: (row) => row.English.Name,
         //this column will sort in ascending order by default since it is a string column
       },
       {
         accessorKey: "createdAt",
-        header: "Implemented",
+        header: "Date",
+        accessorFn: (row) => row.Russian.Name,
         // sortingFn: 'datetime' //make sure table knows this is a datetime column (usually can detect if no null values)
       },
       {
-        accessorFn: (row) => row.Location.District,
+        accessorFn: (row) => row.Category,
         id: "lastName",
         cell: (info) => info.getValue(),
-        header: () => <span>District | Town / Village</span>,
+        header: () => <span>Category</span>,
         sortUndefined: "last", //force undefined values to the end
         sortDescFirst: false, //first sort order will be ascending (nullable values can mess up auto detection of sort order)
       },
@@ -88,14 +80,14 @@ export default function ProjectsTable() {
     []
   );
 
-  const [projectData, setProjectData] = useState([])
-  
+  const [newsData, setNewsData] = useState([]);
+
   const [data, setData] = useState(() => makeData(1_000));
   const refreshData = () => setData(() => makeData(100_000)); //stress test with 100k rows
 
   const table = useReactTable({
     columns,
-    data: projectData,
+    data: newsData,
     debugTable: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(), //client-side sorting
@@ -118,15 +110,15 @@ export default function ProjectsTable() {
   //access sorting state from the table instance
   // console.log(table.getState().sorting);
 
-  function getProjects() {
-    fetch("http://127.0.0.1:9595/get/project")
+  function getNews() {
+    fetch("http://127.0.0.1:9595/get/news")
       .then((res) => {
         // console.log(res);
         return res.json();
       })
       .then((data) => {
         console.log("fetched data", data);
-        setProjectData(data);
+        setNewsData(data);
       })
       .catch((err) => {
         console.log("api error", err);
@@ -134,9 +126,9 @@ export default function ProjectsTable() {
   }
 
   useEffect(() => {
-    getProjects();
+    getNews();
   }, []);
-  
+
   return (
     <div className="my-10">
       <table className="project__table">
@@ -185,16 +177,9 @@ export default function ProjectsTable() {
           {table
             .getRowModel()
             .rows.slice(0, 10)
-            .map((row, index) => {
+            .map((row) => {
               return (
-                <tr
-                  key={row.id}
-                  className={`${
-                    currentIndex == index
-                      ? "table_td h-[150px]"
-                      : "table_td h-[60px]"
-                  }`}
-                >
+                <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => {
                     return (
                       <td key={cell.id} className="h-[60px]">
@@ -207,11 +192,9 @@ export default function ProjectsTable() {
                   })}
                   <td
                     className="select-none cursor-pointer h-[60px]"
-                    onClick={() => handleCollapseAccordion(index)}
+                    onClick={() => console.log("trigger")}
                   >
-                    {currentIndex == index
-                      ? "🔽"
-                      : "🔼"}
+                    {"🔽"}
                   </td>
                 </tr>
               );
