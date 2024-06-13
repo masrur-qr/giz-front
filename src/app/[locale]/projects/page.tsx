@@ -11,12 +11,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ICategory, projects_categories } from "@/data/categories";
+import { Locale } from "@/i18n.config";
 import { Input } from "@/shadcn/ui/input";
 import { IProject } from "@/types";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export default function ProjectsPage() {
+  const [currentLanguage, setCurrentLanguage] = useState<Locale>("en");
+
+  useLayoutEffect(() => {
+    const storedLang = (localStorage.getItem("lang") as Locale) || "en";
+    setCurrentLanguage(storedLang);
+  }, []);
+
   const [data, setData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,6 +69,16 @@ export default function ProjectsPage() {
   useEffect(() => {
     getProjects();
   }, []);
+
+  const findCategoty = (category: string) => {
+    const current_categoty = projects_categories.find(
+      (item: ICategory) =>
+        item.en.toLowerCase() === category.toLowerCase()
+    );
+
+    return current_categoty;
+  };
+
   return (
     <main>
       <div className="wrapper__page">
@@ -159,7 +178,18 @@ export default function ProjectsPage() {
                       {news.English?.Name}
                     </Link>
                     <div className="min-w-full flex items-center justify-between mt-3">
-                      <p>{news.Category}</p>
+                      {/* <p>{news.Category}</p> */}
+                      <p>
+                        {currentLanguage == "en"
+                          ? findCategoty(news.Category)?.en
+                          : ""}
+                        {currentLanguage == "ru"
+                          ? findCategoty(news.Category)?.ru
+                          : ""}
+                        {currentLanguage == "tj"
+                          ? findCategoty(news.Category)?.tj
+                          : ""}
+                      </p>
                       <p>25.07.2024</p>
                     </div>
                   </div>

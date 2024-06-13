@@ -19,10 +19,10 @@ import MediaFiles from "@/components/MediaFiles/MediaFiles";
 import { useEffect, useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function AddNewsPage() {
-  const [selectedOption, setSelectedOption] = useState("Мероприятие");
+  const [selectedOption, setSelectedOption] = useState("Event");
 
   const englishName = useRef<any>(null);
   const englishDescription = useRef<any>(null);
@@ -64,7 +64,7 @@ export default function AddNewsPage() {
     setFiles(event.target.files);
   };
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleUploadNews = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -127,7 +127,7 @@ export default function AddNewsPage() {
     });
 
     // return response.json();
-    router.replace("admin-news")
+    router.replace("admin-news");
   };
 
   async function FileREader(File: any) {
@@ -184,7 +184,7 @@ export default function AddNewsPage() {
                 <SelectValue placeholder="Describe the news..." />
               </SelectTrigger>
               <SelectContent>
-                <SelectGroup>
+                {/* <SelectGroup>
                   <SelectLabel>Тип новости</SelectLabel>
                   <SelectItem value="Мероприятие">Мероприятие</SelectItem>
                   <SelectItem value="Семинар">Семинар</SelectItem>
@@ -209,6 +209,19 @@ export default function AddNewsPage() {
                   <SelectItem value="Форум">Форум</SelectItem>
                   <SelectItem value="Вохӯрӣ">Вохӯрӣ</SelectItem>
                   <SelectItem value="Презентатсия">Презентатсия</SelectItem>
+                </SelectGroup> */}
+                <SelectGroup>
+                  <SelectLabel>Category</SelectLabel>
+                  <SelectItem value="Event">Event</SelectItem>
+                  <SelectItem value="Seminar">Seminar</SelectItem>
+                  <SelectItem value="Training">Training</SelectItem>
+                  <SelectItem value="Conference">Conference</SelectItem>
+                  <SelectItem value="Exhibition">Exhibition</SelectItem>
+                  <SelectItem value="Webinar">Webinar</SelectItem>
+                  <SelectItem value="Master Class">Master Class</SelectItem>
+                  <SelectItem value="Forum">Forum</SelectItem>
+                  <SelectItem value="Meeting">Meeting</SelectItem>
+                  <SelectItem value="Presentation">Presentation</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

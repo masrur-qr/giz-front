@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function AddProjectPage() {
-  const [selectedOption, setSelectedOption] = useState("Стартапы");
+  const [selectedOption, setSelectedOption] = useState("Startups");
   const [districtOption, setDistrictOption] = useState("Хорог");
 
   const englishName = useRef<any>(null);
@@ -191,7 +191,7 @@ export default function AddProjectPage() {
                 <SelectValue placeholder="Select a Category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectGroup>
+                {/* <SelectGroup>
                   <SelectLabel>Russain</SelectLabel>
                   <SelectItem value="Стартапы">Стартапы</SelectItem>
                   <SelectItem value="Инновационные проект">
@@ -226,9 +226,9 @@ export default function AddProjectPage() {
                   </SelectItem>
                   <SelectItem value="Услуги">Услуги</SelectItem>
                   <SelectItem value="Торговля">Торговля</SelectItem>
-                </SelectGroup>
+                </SelectGroup> */}
                 <SelectGroup>
-                  <SelectLabel>English</SelectLabel>
+                  <SelectLabel>Categories</SelectLabel>
                   <SelectItem value="Startups">Startups</SelectItem>
                   <SelectItem value="nnovative project">
                     Innovative project
@@ -257,7 +257,7 @@ export default function AddProjectPage() {
                   <SelectItem value="Services">Services</SelectItem>
                   <SelectItem value="Trade">Trade</SelectItem>
                 </SelectGroup>
-                <SelectGroup>
+                {/* <SelectGroup>
                   <SelectLabel>Tajik</SelectLabel>
                   <SelectItem value="Стартапҳо">Стартапҳо</SelectItem>
                   <SelectItem value="Лоиҳаи инноватсионӣ">
@@ -286,7 +286,7 @@ export default function AddProjectPage() {
                   </SelectItem>
                   <SelectItem value="Хизматрасонӣ">Хизматрасонӣ</SelectItem>
                   <SelectItem value="Савдо">Савдо</SelectItem>
-                </SelectGroup>
+                </SelectGroup> */}
               </SelectContent>
             </Select>
           </div>

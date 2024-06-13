@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import {
   Select,
@@ -28,11 +28,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/shadcn/ui/input";
+import { Locale } from "@/i18n.config";
+import { ICategory, news_categories } from "@/data/categories";
 
 // import { useTranslations } from "next-intl";
 // import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function NewsPage() {
+  const [currentLanguage, setCurrentLanguage] = useState<Locale>("en");
+
+  useLayoutEffect(() => {
+    const storedLang = (localStorage.getItem("lang") as Locale) || "en";
+    setCurrentLanguage(storedLang);
+  }, []);
+
   // unstable_setRequestLocale(locale);
   // const t = useTranslations("News");
   const [data, setData] = useState([]);
@@ -65,7 +74,9 @@ export default function NewsPage() {
     }
 
     if (fromDate) {
-      filtered = filtered.filter((news: INews) => new Date(news.Date) >= fromDate);
+      filtered = filtered.filter(
+        (news: INews) => new Date(news.Date) >= fromDate
+      );
     }
 
     if (toDate) {
@@ -90,6 +101,15 @@ export default function NewsPage() {
   useEffect(() => {
     getNews();
   }, []);
+
+  const findCategoty = (category: string) => {
+    const current_categoty = news_categories.find(
+      (item: ICategory) =>
+        item.en.toLowerCase() === category.toLowerCase()
+    );
+
+    return current_categoty;
+  };
 
   return (
     <main>
@@ -231,15 +251,26 @@ export default function NewsPage() {
                     height={321}
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-[13px]"
                   />
-                  <div className="relative z-[3] text-white">
+                  <div className="min-w-full relative z-[3] text-white">
                     <Link
                       href={`/news/${news.Id}`}
                       className="text-[22px] font-bold line-clamp-2"
                     >
                       {news.English.Name}
                     </Link>
-                    <div className="flex items-center justify-between mt-3">
-                      <p>{news.Category}</p>
+                    <div className="min-w-full flex items-center justify-between mt-3">
+                      {/* <p>{news.Category}</p> */}
+                      <p>
+                        {currentLanguage == "en"
+                          ? findCategoty(news.Category)?.en
+                          : ""}
+                        {currentLanguage == "ru"
+                          ? findCategoty(news.Category)?.ru
+                          : ""}
+                        {currentLanguage == "tj"
+                          ? findCategoty(news.Category)?.tj
+                          : ""}
+                      </p>
                       <p>25.07.2024</p>
                     </div>
                   </div>

@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "./page.css";
+import { ICategory, news_categories } from "@/data/categories";
 
 export default function EachNews({ params }: { params: { slug: string } }) {
   // const currentNews: INews | undefined = news_data.find(
@@ -49,6 +50,15 @@ export default function EachNews({ params }: { params: { slug: string } }) {
     setCurrentLanguage(storedLang);
   }, []);
 
+  const findCategoty = (category: string | any) => {
+    const current_categoty = news_categories.find(
+      (item: ICategory) =>
+        item.en.toLowerCase() === category?.toLowerCase()
+    );
+
+    return current_categoty;
+  };
+
   return (
     <main>
       <div className="wrapper__page">
@@ -60,16 +70,24 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             className="w-full h-[450px] object-cover"
           />
           <div className="flex items-center gap-5 mt-5">
-            <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
+            {/* <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
               25.07.2024
-            </p>
+            </p> */}
             <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
-              {slugNews?.Category}
+              {/* {slugNews?.Category} */}
+              {currentLanguage == "en"
+                ? findCategoty(slugNews?.Category)?.en
+                : ""}
+              {currentLanguage == "ru"
+                ? findCategoty(slugNews?.Category)?.ru
+                : ""}
+              {currentLanguage == "tj"
+                ? findCategoty(slugNews?.Category)?.tj
+                : ""}
             </p>
-            <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
-              {/* {currentNews?.location.district} */}
-              District
-            </p>
+            {/* <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
+              {slugNews?.location?.district}
+            </p> */}
           </div>
           <h1 className="text-[#C30F08] text-[34px] font-bold text-center mt-[100px] mb-[30px]">
             {currentLanguage == "en"

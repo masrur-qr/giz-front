@@ -1,56 +1,56 @@
 {
   "units": {
-    "temperature": "celsius"
+    "temperature": "fahrenheit"
   },
   "Layout": {
     "metaData": {
-      "title": "تقص نكست چى إس",
-      "description": "تطبيق طقس وهمي بسيط تم إنشاؤه باستخدام Next.js و next-intl."
+      "title": "Giz",
+      "description": "GIZ Сайт"
     }
   },
   "Header": {
-    "appTitle": "تقص نكست چى إس",
+    "appTitle": "Next.js Weather",
     "navLinks": {
-      "week": "هذا الأسبوع",
-      "about": "نبذة عنا"
+      "week": "This week",
+      "about": "About"
     }
   },
   "WeatherAlerts": {
-    "title": "تنبيهات الطقس"
+    "title": "Weather Alerts"
   },
   "Home": {
-    "title": "طقس اليوم",
-    "userGreeting": "👋 مرحباً {name}",
-    "sunny": "مشمس"
+    "title": "Today's weather",
+    "userGreeting": "👋 Welcome, {name}!",
+    "sunny": "Sunny"
   },
   "Week": {
     "metaData": {
-      "title": "الطقس لهذا الأسبوع | تقص نكست چى إس",
-      "description": "توقعات الطقس لهذا الأسبوع."
+      "title": "This week's weather | Next.js Weather",
+      "description": "This week's weather forecast"
     },
-    "title": "الطقس لهذا الأسبوع",
-    "alertCount": "{count, plural, zero {لا توجد تنبيهات} one {يوجد تنبيه واحد} two {يوجد تنبيهان} few {يوجد {count, number} تنبيهات} many {يوجد {count, number} تنبيه} other {يوجد {count, number} تنبيه}}",
+    "title": "This week's weather",
+    "alertCount": "{count, plural, =0 {No alerts} one {One alert!} other {# alerts!}}",
     "dayDate": "{dayDate, date, longDay}",
-    "sunny": "مشمس",
-    "cloudy": "غائم",
-    "rainy": "ممطر",
-    "partlyCloudy": "غائم جزئيا",
-    "showers": "زخات مطرية",
-    "thunderstorms": "عواصف رعدية"
+    "sunny": "Sunny",
+    "cloudy": "Cloudy",
+    "rainy": "Rainy",
+    "partlyCloudy": "Partly Cloudy",
+    "showers": "Showers",
+    "thunderstorms": "Thunderstorms"
   },
   "About": {
-    "title": "نبذة عنا",
-    "description": "هذا تطبيق طقس وهمي بسيط تم إنشاؤه باستخدام <linkToNext>Next.js</linkToNext>.",
-    "liveDuration": "لقد كنا على الهواء مباشرة لمدة {duration, number, ::precision-integer} ثانية.",
-    "text1": "Ассоциация предпринимателей ГБАО (далее «АП ГБАО») была создана в 2023 году с целью усиления экономических возможностей предпринимателей. Она также стремится предоставить своим членам финансовое образование и базовые знания предпринимательства, а также обеспечить доступ к финансовым и экономическим ресурсам для развития бизнеса в регионе.",
-    "text2": "Первым мероприятием, организованным АП ГБАО, стал Памирский инвестиционный форум в августе 2023 года. Это мероприятие объединило местных и иностранных инвесторов. Форум был организован в сотрудничестве с местным органом исполнительной власти ГБАО при финансовой поддержке международных донорских организаций, действующих на территории Республики Таджикистан.",
-    "text3": "Тематика форума включала вопросы развития трех основных потенциальных секторов экономики ГБАО. Области возможных инвестиций включали горнодобывающий сектор, развитие туристической отрасли в регионе, создание промышленных предприятий и переработку местной продукции в сфере сельского хозяйства. Предприниматели представили более 34 бизнес-планов, направленных на развитие данных секторов.",
-    "text4": "АП ГБАО имеет право осуществлять деятельность, требующей специального разрешения или лицензии, только после получения соответствующего разрешения. Действие разрешения прекращается по истечении срока его действия."
+    "title": "About",
+    "description": "This is a minimalistic mock weather app built with <linkToNext>Next.js</linkToNext>.",
+    "liveDuration": "We've been live for {duration, number, ::precision-integer} seconds.",
+    "text1": "The Association of Entrepreneurs of GBAO (hereinafter referred to as “AE of GBAO”) was created in 2023 with the aim of strengthening the economic opportunities of entrepreneurs. It also strives to provide its members with financial education and basic knowledge of entrepreneurship, as well as access to financial and economic resources for business development in the region.",
+    "text2": "The first event organized by “AE of GBAO” was the Pamir Investment Forum in August 2023. This event brought together local and foreign investors. The forum was organized in cooperation with the local executive authority of GBAO with the financial support of international donor organizations operating in the territory of the Republic of Tajikistan.",
+    "text3": "The topics of the forum included the development of three main potential sectors of the GBAO economy. Areas of possible investment included the mining sector, the development of the tourism industry in the region, the creation of industrial enterprises and the processing of local agricultural products. Entrepreneurs presented more than 34 business plans aimed at developing these sectors.",
+    "text4": "“AE of GBAO” has the right to carry out activities requiring special permission or license only after receiving the appropriate permit. The permit expires upon expiration."
   },
   "Projects": {
-    "title": "Проекты"
+    "title": "Projects"
   },
   "News": {
-    "title": "Новости"
+    "title": "News"
   }
 }
