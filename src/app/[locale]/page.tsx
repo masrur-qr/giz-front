@@ -6,8 +6,18 @@ import MainSlider from "@/components/MainSlider/MainSlider";
 import Partners from "@/components/Partners/Partners";
 // import { Locale } from "@/i18n.config";
 import { getDictionary } from "@/lib/dictionary";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 export default async function Home() {
+  const Map = useMemo(() => dynamic(
+    () => import('@/components/IntMap/IntMap'),
+    {
+      loading: () => <p>A map is loading</p>,
+      ssr: false
+    }
+  ), [])
+
   // const { page } = await getDictionary(lang);
   return (
     <main>
@@ -15,6 +25,10 @@ export default async function Home() {
       <h1>{page.home.title}</h1> */}
       <MainSlider />
       <About />
+      <section className="w-[800px] h-[600px]  flex">
+        <Map />
+
+      </section>
       <Partners />
     </main>
   );
