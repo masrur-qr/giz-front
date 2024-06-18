@@ -30,7 +30,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
       setData(data);
       console.log(data);
       const currentNews: INews | undefined = data.find(
-        (news: INews) => news.Id === params.slug
+        (news: INews) => news.id === params.slug
       );
       setSlugNews(currentNews);
       return data;

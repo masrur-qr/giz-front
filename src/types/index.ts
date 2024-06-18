@@ -1,12 +1,13 @@
+
 export interface ILanguage {
-  Name: string;
-  Description: string;
+  name: string;
+  description: string;
 }
 
 export interface ILocation {
-  District: string;
-  Village: string;
-  Coordinates: string;
+  district: string;
+  village: string;
+  coordinates: string;
 }
 
 export interface IMedia {
@@ -16,24 +17,24 @@ export interface IMedia {
 }
 
 export interface INews {
-  Id: string;
-  Category: string;
-  English: ILanguage;
-  Tajik: ILanguage;
-  Russian: ILanguage;
-  Links: string[];
-  BannerUrl: any;
+  id: string;
+  category: string;
+  english: ILanguage;
+  tajik: ILanguage;
+  russian: ILanguage;
+  links: string[];
+  bannerUrl: any;
   mediaFiles: IMedia[];
 }
 
 export interface IProject {
-  Id: string;
-  Category: string;
-  English: ILanguage;
-  Tajik: ILanguage;
-  Russian: ILanguage;
-  Location: ILocation;
-  Links: string[];
-  BannerUrl: any;
+  id: string;
+  category: string;
+  english: ILanguage;
+  tajik: ILanguage;
+  russian: ILanguage;
+  location: ILocation;
+  links: string[];
+  bannerUrl: any;
   mediaFiles: IMedia[];
 }

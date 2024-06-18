@@ -1,0 +1,4 @@
+.leaflet-interactive:focus{
+    outline: 1px transparent solid !important;
+}
+
