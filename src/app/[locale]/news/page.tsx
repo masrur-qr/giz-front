@@ -47,6 +47,7 @@ export default function NewsPage() {
   const [data, setData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [filteredNews, setFilteredNews] = useState<INews[]>([]);
 
   const [fromDate, setFromDate] = useState<Date | any>(null);
@@ -54,7 +55,7 @@ export default function NewsPage() {
 
   useEffect(() => {
     filterNews();
-  }, [searchQuery, fromDate, toDate, data]);
+  }, [searchQuery, selectedCategory, fromDate, toDate, data]);
 
   const filterNews = () => {
     let filtered = data;
@@ -73,14 +74,20 @@ export default function NewsPage() {
       );
     }
 
+    if (selectedCategory && selectedCategory !== "All") {
+      filtered = filtered.filter((news: INews) =>
+        news.Category.toLowerCase().includes(selectedCategory.toLowerCase())
+      );
+    }
+
     if (fromDate) {
       filtered = filtered.filter(
-        (news: INews) => new Date(news.Date) >= fromDate
+        (news: any) => new Date(news.Date) >= fromDate
       );
     }
 
     if (toDate) {
-      filtered = filtered.filter((news) => new Date(news.Date) <= toDate);
+      filtered = filtered.filter((news: any) => new Date(news.Date) <= toDate);
     }
 
     setFilteredNews(filtered);
@@ -104,22 +111,35 @@ export default function NewsPage() {
 
   const findCategoty = (category: string) => {
     const current_categoty = news_categories.find(
-      (item: ICategory) =>
-        item.en.toLowerCase() === category.toLowerCase()
+      (item: ICategory) => item.en.toLowerCase() === category.toLowerCase()
     );
 
     return current_categoty;
   };
 
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+  };
+
+  // const news = data.filter((newsItem: any) => {
+  //   const matchesCategory = selectedCategory ? newsItem.categoryId === news_categories.find(cat => cat.en === selectedCategory)?.id : true;
+  //   const matchesSearch = searchQuery ? newsItem.title.toLowerCase().includes(searchQuery.toLowerCase()) || newsItem.content.toLowerCase().includes(searchQuery.toLowerCase()) : true;
+  //   return matchesCategory && matchesSearch;
+  // });
+
+  // setFilteredNews(news)
+
   return (
     <main>
       <div className="wrapper__page">
         <h3 className="text-center text-[#C30F08] text-[34px] font-bold uppercase my-[50px]">
-          News
+          {currentLanguage == "en" ? "News" : ""}
+          {currentLanguage == "ru" ? "Новости" : ""}
+          {currentLanguage == "tj" ? "Хабарҳо" : ""}
         </h3>
         {/* <NewsFilter filteredNews={filteredNews} setFilteredNews={setFilteredNews} data={data} setData={setData} /> */}
         <section>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-[100px]">
             <div className="flex items-center gap-5">
               <label
                 htmlFor=""
@@ -130,12 +150,12 @@ export default function NewsPage() {
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="news__input"
+                className="w-[400px]"
                 type="text"
                 placeholder="Email"
               />
             </div>
-            <div className="flex items-center gap-5">
+            {/* <div className="flex items-center gap-5">
               <label
                 htmlFor=""
                 className="text-[#666666] font-semibold text-[18px]"
@@ -170,8 +190,8 @@ export default function NewsPage() {
                   </PopoverContent>
                 </Popover>
               </div>
-            </div>
-            <div className="flex items-center gap-5">
+            </div> */}
+            {/* <div className="flex items-center gap-5">
               <label
                 htmlFor=""
                 className="text-[#666666] font-semibold text-[18px]"
@@ -206,7 +226,7 @@ export default function NewsPage() {
                   </PopoverContent>
                 </Popover>
               </div>
-            </div>
+            </div> */}
             <div className="flex items-center gap-5">
               <label
                 htmlFor=""
@@ -214,25 +234,123 @@ export default function NewsPage() {
               >
                 Category
               </label>
-              <Select>
-                <SelectTrigger className="w-[180px]">
+              <Select onValueChange={handleCategoryChange}>
+                <SelectTrigger className="w-[400px]">
                   <SelectValue placeholder="" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                    <SelectItem value="All">
+                      {currentLanguage === "en" ? "All" : ""}
+                      {currentLanguage === "ru" ? "Все" : ""}
+                      {currentLanguage === "tj" ? "Ҳама" : ""}
+                    </SelectItem>
+                    <SelectItem value="Event">
+                      {currentLanguage == "en" ? findCategoty("Event")?.en : ""}
+                      {currentLanguage == "ru" ? findCategoty("Event")?.ru : ""}
+                      {currentLanguage == "tj" ? findCategoty("Event")?.tj : ""}
+                    </SelectItem>
+                    <SelectItem value="Seminar">
+                      {currentLanguage == "en"
+                        ? findCategoty("Seminar")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Seminar")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Seminar")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Training">
+                      {currentLanguage == "en"
+                        ? findCategoty("Training")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Training")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Training")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Conference">
+                      {currentLanguage == "en"
+                        ? findCategoty("Conference")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Conference")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Conference")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Exhibition">
+                      {currentLanguage == "en"
+                        ? findCategoty("Exhibition")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Exhibition")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Exhibition")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Webinar">
+                      {currentLanguage == "en"
+                        ? findCategoty("Webinar")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Webinar")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Webinar")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Master Class">
+                      {currentLanguage == "en"
+                        ? findCategoty("Master Class")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Master Class")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Master Class")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Forum">
+                      {currentLanguage == "en" ? findCategoty("Forum")?.en : ""}
+                      {currentLanguage == "ru" ? findCategoty("Forum")?.ru : ""}
+                      {currentLanguage == "tj" ? findCategoty("Forum")?.tj : ""}
+                    </SelectItem>
+                    <SelectItem value="Meeting">
+                      {currentLanguage == "en"
+                        ? findCategoty("Meeting")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Meeting")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Meeting")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Presentation">
+                      {currentLanguage == "en"
+                        ? findCategoty("Presentation")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Presentation")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Presentation")?.tj
+                        : ""}
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
-            <button className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]">
+            {/* <button className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]">
               search
-            </button>
+            </button> */}
           </div>
         </section>
         {/* <NewsList data={data} setData={setData} filteredNews={filteredNews}/> */}
@@ -256,7 +374,9 @@ export default function NewsPage() {
                       href={`/news/${news.Id}`}
                       className="text-[22px] font-bold line-clamp-2"
                     >
-                      {news.English.Name}
+                      {currentLanguage == "en" ? news.English?.Name : ""}
+                      {currentLanguage == "ru" ? news.Russian?.Name : ""}
+                      {currentLanguage == "tj" ? news.Tajik?.Name : ""}
                     </Link>
                     <div className="min-w-full flex items-center justify-between mt-3">
                       {/* <p>{news.Category}</p> */}
@@ -271,7 +391,7 @@ export default function NewsPage() {
                           ? findCategoty(news.Category)?.tj
                           : ""}
                       </p>
-                      <p>25.07.2024</p>
+                      {/* <p>25.07.2024</p> */}
                     </div>
                   </div>
                   <div className="news__gradient"></div>

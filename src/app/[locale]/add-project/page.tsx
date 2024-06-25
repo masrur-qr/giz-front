@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function AddProjectPage() {
   const [selectedOption, setSelectedOption] = useState("Startups");
-  const [districtOption, setDistrictOption] = useState("Хорог");
+  const [districtOption, setDistrictOption] = useState("Khorog");
 
   const englishName = useRef<any>(null);
   const englishDescription = useRef<any>(null);
@@ -33,7 +33,8 @@ export default function AddProjectPage() {
   const russianDescription = useRef<any>(null);
 
   const town = useRef<any>(null);
-  const coordinations = useRef<any>(null);
+  const coordinations1 = useRef<any>(null);
+  const coordinations2 = useRef<any>(null);
 
   const defaultLink = useRef<any>(null);
 
@@ -115,9 +116,12 @@ export default function AddProjectPage() {
       },
       Links: links,
       Location: {
-        District: districtOption,
+        District: Number(districtOption),
         Village: town.current.value,
-        Coordinates: coordinations.current.value,
+        Coordinates: [
+          Number(coordinations1.current.value),
+          Number(coordinations2.current.value),
+        ],
       },
       BannerUrl: images.banner,
       MediaFiles: medias,
@@ -134,7 +138,7 @@ export default function AddProjectPage() {
     });
 
     // return response.json();
-    router.replace("admin-news");
+    router.replace("admin-projects");
   };
 
   async function FileREader(File: any) {
@@ -153,7 +157,8 @@ export default function AddProjectPage() {
 
         while (offset < rawData.byteLength) {
           let chunk: any = rawData.slice(offset, offset + chunkSize);
-          bt += btoa(String.fromCharCode.apply(null, new Uint8Array(chunk)));
+          let chunkArray: number[] = Array.from(new Uint8Array(chunk));
+          bt += btoa(String.fromCharCode.apply(null, chunkArray));
           offset += chunkSize;
         }
 
@@ -230,7 +235,7 @@ export default function AddProjectPage() {
                 <SelectGroup>
                   <SelectLabel>Categories</SelectLabel>
                   <SelectItem value="Startups">Startups</SelectItem>
-                  <SelectItem value="nnovative project">
+                  <SelectItem value="Innovative project">
                     Innovative project
                   </SelectItem>
                   <SelectItem value="Social project">Social project</SelectItem>
@@ -322,7 +327,7 @@ export default function AddProjectPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={englishDescription}
               />
             </div>
@@ -359,7 +364,7 @@ export default function AddProjectPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={tajikDescription}
               />
             </div>
@@ -396,7 +401,7 @@ export default function AddProjectPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={russianDescription}
               />
             </div>
@@ -413,9 +418,9 @@ export default function AddProjectPage() {
                 placeholder="Введите название новости..."
                 ref={defaultLink}
               />
-              <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
+              {/* <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
                 ADD
-              </button>
+              </button> */}
             </div>
             {inputs.map((input: any) => (
               <div key={input.key} className="flex items-center gap-5 mb-5">
@@ -426,9 +431,9 @@ export default function AddProjectPage() {
                   value={input.value}
                   onChange={(e) => handleInputChange(e, input.key)}
                 />
-                <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
+                {/* <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
                   ADD
-                </button>
+                </button> */}
               </div>
             ))}
             <div>
@@ -460,7 +465,7 @@ export default function AddProjectPage() {
                   <SelectValue placeholder="Select a Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectGroup>
+                  {/* <SelectGroup>
                     <SelectLabel>Russain</SelectLabel>
                     <SelectItem value="Хорог">Хорог</SelectItem>
                     <SelectItem value="Дарваз">Дарваз</SelectItem>
@@ -470,19 +475,19 @@ export default function AddProjectPage() {
                     <SelectItem value="Рошткала">Рошткала</SelectItem>
                     <SelectItem value="Ишкашим">Ишкашим</SelectItem>
                     <SelectItem value="Мургаб">Мургаб</SelectItem>
-                  </SelectGroup>
+                  </SelectGroup> */}
                   <SelectGroup>
-                    <SelectLabel>English</SelectLabel>
-                    <SelectItem value="Khorog">Khorog</SelectItem>
-                    <SelectItem value="Darvoz">Darvoz</SelectItem>
-                    <SelectItem value="Vanj">Vanj</SelectItem>
-                    <SelectItem value="Rushon">Rushon</SelectItem>
-                    <SelectItem value="Shughnon">Shughnon</SelectItem>
-                    <SelectItem value="Roshtqal">Roshtqal'a</SelectItem>
-                    <SelectItem value="Ishkoshim">Ishkoshim</SelectItem>
-                    <SelectItem value="Murghob">Murghob</SelectItem>
+                    <SelectLabel>Districts</SelectLabel>
+                    <SelectItem value="1">Khorog</SelectItem>
+                    <SelectItem value="2">Darvoz</SelectItem>
+                    <SelectItem value="3">Vanj</SelectItem>
+                    <SelectItem value="4">Rushon</SelectItem>
+                    <SelectItem value="5">Shughnon</SelectItem>
+                    <SelectItem value="7">Roshtqala</SelectItem>
+                    <SelectItem value="6">Ishkoshim</SelectItem>
+                    <SelectItem value="8">Murghob</SelectItem>
                   </SelectGroup>
-                  <SelectGroup>
+                  {/* <SelectGroup>
                     <SelectLabel>Tajik</SelectLabel>
                     <SelectItem value="Хоруғ">Хоруғ</SelectItem>
                     <SelectItem value="Дарвоз">Дарвоз</SelectItem>
@@ -492,7 +497,7 @@ export default function AddProjectPage() {
                     <SelectItem value="Роштқалъа">Роштқалъа</SelectItem>
                     <SelectItem value="Ишкошим">Ишкошим</SelectItem>
                     <SelectItem value="Мурғоб">Мурғоб</SelectItem>
-                  </SelectGroup>
+                  </SelectGroup> */}
                 </SelectContent>
               </Select>
             </div>
@@ -515,7 +520,15 @@ export default function AddProjectPage() {
                 className="w-[400px]"
                 type="text"
                 placeholder="example: 37.490273, 71.546686"
-                ref={coordinations}
+                ref={coordinations1}
+              />
+            </div>
+            <div className="mt-5">
+              <Input
+                className="w-[400px]"
+                type="text"
+                placeholder="example: 37.490273, 71.546686"
+                ref={coordinations2}
               />
             </div>
           </section>

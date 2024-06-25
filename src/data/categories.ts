@@ -38,8 +38,8 @@ export const projects_categories: ICategory[] = [
   },
   {
     id: "6",
-    en: "Образования",
-    ru: "Education",
+    en: "Education",
+    ru: "Образования",
     tj: "Маориф",
   },
   {

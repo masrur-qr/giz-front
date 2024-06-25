@@ -146,7 +146,8 @@ export default function AddNewsPage() {
 
         while (offset < rawData.byteLength) {
           let chunk: any = rawData.slice(offset, offset + chunkSize);
-          bt += btoa(String.fromCharCode.apply(null, new Uint8Array(chunk)));
+          let chunkArray: number[] = Array.from(new Uint8Array(chunk));
+          bt += btoa(String.fromCharCode.apply(null, chunkArray));
           offset += chunkSize;
         }
 
@@ -258,7 +259,7 @@ export default function AddNewsPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={englishDescription}
               />
             </div>
@@ -295,7 +296,7 @@ export default function AddNewsPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={tajikDescription}
               />
             </div>
@@ -332,7 +333,7 @@ export default function AddNewsPage() {
               </label>
               <Textarea
                 placeholder="Type your message here."
-                className="w-[600px]"
+                className="w-[600px] h-[200px]"
                 ref={russianDescription}
               />
             </div>
@@ -348,9 +349,9 @@ export default function AddNewsPage() {
               placeholder="Введите название новости..."
               ref={defaultLink}
             />
-            <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
+            {/* <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
               ADD
-            </button>
+            </button> */}
           </div>
           {inputs.map((input: any) => (
             <div key={input.key} className="flex items-center gap-5 mb-5">
@@ -361,9 +362,9 @@ export default function AddNewsPage() {
                 value={input.value}
                 onChange={(e) => handleInputChange(e, input.key)}
               />
-              <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
+              {/* <button className="bg-[#C30F08] text-white px-5 py-2 rounded-md">
                 ADD
-              </button>
+              </button> */}
             </div>
           ))}
           <div>

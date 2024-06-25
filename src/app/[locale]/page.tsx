@@ -10,13 +10,14 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
 export default async function Home() {
-  const Map = useMemo(() => dynamic(
-    () => import('@/components/IntMap/IntMap'),
-    {
-      loading: () => <p>A map is loading</p>,
-      ssr: false
-    }
-  ), [])
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("@/components/IntMap/IntMap"), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+      }),
+    []
+  );
 
   // const { page } = await getDictionary(lang);
   return (
@@ -25,9 +26,8 @@ export default async function Home() {
       <h1>{page.home.title}</h1> */}
       <MainSlider />
       <About />
-      <section className="w-[800px] h-[600px]  flex">
+      <section className="h-[600px] flex justify-center items-center pt-[100px] pb-[50px]">
         <Map />
-
       </section>
       <Partners />
     </main>

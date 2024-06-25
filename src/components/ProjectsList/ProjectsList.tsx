@@ -23,7 +23,7 @@ export default function ProjectsList() {
   useEffect(() => {
     getProjects();
   }, []);
-  
+
   return (
     <section className="my-10 flex items-center gap-10 flex-wrap">
       {data.map((news: INews) => {
@@ -48,7 +48,6 @@ export default function ProjectsList() {
               </Link>
               <div className="min-w-full flex items-center justify-between mt-3">
                 <p>{news.Category}</p>
-                <p>25.07.2024</p>
               </div>
             </div>
             <div className="news__gradient"></div>

@@ -7,6 +7,7 @@ import "./globals.css";
 import { locales } from "@/i18n.config";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import useTextDirection from "../../hooks/useTextDirection";
+import OutletLayout from "@/layouts/OutletLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -44,9 +45,7 @@ export default function LocaleLayout({
   return (
     <html lang={locale} dir={dir}>
       <body className={montserrat.className}>
-        <Header />
-        {children}
-        <Footer />
+        <OutletLayout>{children}</OutletLayout>
       </body>
     </html>
   );

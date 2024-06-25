@@ -14,6 +14,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "./page.css";
 import { ICategory, news_categories } from "@/data/categories";
+import Link from "next/link";
 
 export default function EachNews({ params }: { params: { slug: string } }) {
   // const currentNews: INews | undefined = news_data.find(
@@ -30,8 +31,10 @@ export default function EachNews({ params }: { params: { slug: string } }) {
       setData(data);
       console.log(data);
       const currentNews: INews | undefined = data.find(
-        (news: INews) => news.id === params.slug
+        (news: INews) => news.Id === params.slug
       );
+      console.log(currentNews);
+
       setSlugNews(currentNews);
       return data;
     } catch (error) {
@@ -52,8 +55,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
 
   const findCategoty = (category: string | any) => {
     const current_categoty = news_categories.find(
-      (item: ICategory) =>
-        item.en.toLowerCase() === category?.toLowerCase()
+      (item: ICategory) => item.en.toLowerCase() === category?.toLowerCase()
     );
 
     return current_categoty;
@@ -90,21 +92,34 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             </p> */}
           </div>
           <h1 className="text-[#C30F08] text-[34px] font-bold text-center mt-[100px] mb-[30px]">
-            {currentLanguage == "en"
-              ? slugNews?.English?.Name
-              : slugNews?.Russian?.Name}
+            {currentLanguage == "en" ? slugNews?.English?.Name : ""}
+            {currentLanguage == "ru" ? slugNews?.Russian?.Name : ""}
+            {currentLanguage == "tj" ? slugNews?.Tajik?.Name : ""}
           </h1>
           <p>
-            {currentLanguage == "ru"
-              ? slugNews?.English?.Description
-              : slugNews?.Russian?.Description}
+            {currentLanguage == "en" ? slugNews?.English?.Description : ""}
+            {currentLanguage == "ru" ? slugNews?.Russian?.Description : ""}
+            {currentLanguage == "tj" ? slugNews?.Tajik?.Description : ""}
           </p>
           {/* documents */}
           <h4 className="text-[#8D8D8D] text=[24px] font-bold mt-[74px]">
             DOCUMENTS:
           </h4>
+          <div className="mt-5 flex justify-start items-start gap-5">
+            {slugNews?.Links?.map((link: string) => {
+              return (
+                <Link
+                  key={slugNews?.Id + link}
+                  className="text-[#8D8D8D] text-[18px] underline"
+                  href={link}
+                >
+                  {link}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-        <Partners />
+
         <div>
           <section>
             <Swiper
@@ -140,6 +155,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             </Swiper>
           </section>
         </div>
+        <Partners />
       </div>
     </main>
   );

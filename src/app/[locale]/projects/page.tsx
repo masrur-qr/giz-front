@@ -29,28 +29,43 @@ export default function ProjectsPage() {
   const [data, setData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedDistrict, setSelectedDistrict] = useState<string>("All");
   const [filteredNews, setFilteredNews] = useState<IProject[]>([]);
 
   useEffect(() => {
     filterNews();
-  }, [searchQuery, data]);
+  }, [searchQuery, selectedCategory, selectedDistrict, data]);
 
   const filterNews = () => {
-    if (!searchQuery) {
-      setFilteredNews(data);
-      return;
+    let filtered = data;
+
+    if (searchQuery) {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (project: IProject) =>
+          project.English.Name.toLowerCase().includes(lowerCaseQuery) ||
+          project.English.Description.toLowerCase().includes(lowerCaseQuery) ||
+          project.Tajik.Name.toLowerCase().includes(lowerCaseQuery) ||
+          project.Tajik.Description.toLowerCase().includes(lowerCaseQuery) ||
+          project.Russian.Name.toLowerCase().includes(lowerCaseQuery) ||
+          project.Russian.Description.toLowerCase().includes(lowerCaseQuery)
+      );
     }
 
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    const filtered = data.filter(
-      (project: IProject) =>
-        project.English.Name.toLowerCase().includes(lowerCaseQuery) ||
-        project.English.Description.toLowerCase().includes(lowerCaseQuery) ||
-        project.Tajik.Name.toLowerCase().includes(lowerCaseQuery) ||
-        project.Tajik.Description.toLowerCase().includes(lowerCaseQuery) ||
-        project.Russian.Name.toLowerCase().includes(lowerCaseQuery) ||
-        project.Russian.Description.toLowerCase().includes(lowerCaseQuery)
-    );
+    if (selectedDistrict && selectedDistrict !== "All") {
+      filtered = filtered.filter(
+        (project: IProject) =>
+          project.Location.District === parseInt(selectedDistrict)
+      );
+    }
+
+    if (selectedCategory && selectedCategory !== "All") {
+      filtered = filtered.filter((project: IProject) =>
+        project.Category.toLowerCase().includes(selectedCategory.toLowerCase())
+      );
+    }
+
     setFilteredNews(filtered);
   };
 
@@ -72,11 +87,92 @@ export default function ProjectsPage() {
 
   const findCategoty = (category: string) => {
     const current_categoty = projects_categories.find(
-      (item: ICategory) =>
-        item.en.toLowerCase() === category.toLowerCase()
+      (item: ICategory) => item.en.toLowerCase() === category.toLowerCase()
     );
 
     return current_categoty;
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+  };
+
+  const handleDistrictChange = (value: string) => {
+    setSelectedDistrict(value);
+  };
+
+  const getDistrictName = (districtId: number) => {
+    if (currentLanguage == "en") {
+      switch (districtId) {
+        case 1:
+          return "Khorog";
+        case 2:
+          return "Darvoz";
+        case 3:
+          return "Vanj";
+        case 4:
+          return "Rushon";
+        case 5:
+          return "Shughnon";
+        case 6:
+          return "Ishkoshim";
+        case 7:
+          return "Roshtqal'a";
+        case 8:
+          return "Murghob";
+        default:
+          return "";
+      }
+    } else if (currentLanguage == "ru") {
+      switch (districtId) {
+        case 1:
+          return "Хорог";
+        case 2:
+          return "Дарвоз";
+        case 3:
+          return "Вандж";
+        case 4:
+          return "Рушан";
+        case 5:
+          return "Шугнан";
+        case 6:
+          return "Ишкашим";
+        case 7:
+          return "Рошткала";
+        case 8:
+          return "Мургаб";
+        default:
+          return "";
+      }
+    } else if (currentLanguage == "tj") {
+      switch (districtId) {
+        case 1:
+          return "Хоруг";
+        case 2:
+          return "Дарвоз";
+        case 3:
+          return "Ванч";
+        case 4:
+          return "Рушон";
+        case 5:
+          return "Шугнон";
+        case 6:
+          return "Ишкошим";
+        case 7:
+          return "Рошткала";
+        case 8:
+          return "Мургоб";
+        default:
+          return "";
+      }
+    }
+    return "";
+  };
+
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("All");
+    setSelectedDistrict("All");
   };
 
   return (
@@ -84,7 +180,9 @@ export default function ProjectsPage() {
       <div className="wrapper__page">
         <h3 className="text-center text-[#C30F08] text-[34px] font-bold uppercase my-[50px]">
           {/* {t("title")} */}
-          Projects
+          {currentLanguage == "en" ? "Projects" : ""}
+          {currentLanguage == "ru" ? "Проекты" : ""}
+          {currentLanguage == "tj" ? "Лоиҳаҳо" : ""}
         </h3>
         <section>
           <div className="flex items-center justify-between">
@@ -110,18 +208,180 @@ export default function ProjectsPage() {
               >
                 Category
               </label>
-              <Select>
+              <Select
+                value={selectedCategory}
+                onValueChange={handleCategoryChange}
+              >
                 <SelectTrigger className="w-[300px]">
                   <SelectValue placeholder="" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                    <SelectItem value="All">
+                      {currentLanguage === "en" ? "All" : ""}
+                      {currentLanguage === "ru" ? "Все" : ""}
+                      {currentLanguage === "tj" ? "Ҳама" : ""}
+                    </SelectItem>
+                    <SelectItem value="Startups">
+                      {currentLanguage == "en"
+                        ? findCategoty("Startups")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Startups")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Startups")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Innovative project">
+                      {currentLanguage == "en"
+                        ? findCategoty("Innovative project")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Innovative project")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Innovative project")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Social project">
+                      {currentLanguage == "en"
+                        ? findCategoty("Social project")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Social project")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Social project")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Technological project">
+                      {currentLanguage == "en"
+                        ? findCategoty("Technological project")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Technological project")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Technological project")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Ecology">
+                      {currentLanguage == "en"
+                        ? findCategoty("Ecology")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Ecology")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Ecology")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Education">
+                      {currentLanguage == "en"
+                        ? findCategoty("Education")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Education")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Education")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Healthcare">
+                      {currentLanguage == "en"
+                        ? findCategoty("Healthcare")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Healthcare")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Healthcare")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Tourism">
+                      {currentLanguage == "en"
+                        ? findCategoty("Tourism")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Tourism")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Tourism")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Culture and arts">
+                      {currentLanguage == "en"
+                        ? findCategoty("Culture and arts")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Culture and arts")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Culture and arts")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Agriculture">
+                      {currentLanguage == "en"
+                        ? findCategoty("Agriculture")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Agriculture")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Agriculture")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Small and medium business">
+                      {currentLanguage == "en"
+                        ? findCategoty("Small and medium business")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Small and medium business")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Small and medium business")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Information Technology">
+                      {currentLanguage == "en"
+                        ? findCategoty("Information Technology")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Information Technology")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Information Technology")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Manufacturing and industry">
+                      {currentLanguage == "en"
+                        ? findCategoty("Manufacturing and industry")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Manufacturing and industry")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Manufacturing and industry")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Services">
+                      {currentLanguage == "en"
+                        ? findCategoty("Services")?.en
+                        : ""}
+                      {currentLanguage == "ru"
+                        ? findCategoty("Services")?.ru
+                        : ""}
+                      {currentLanguage == "tj"
+                        ? findCategoty("Services")?.tj
+                        : ""}
+                    </SelectItem>
+                    <SelectItem value="Trade">
+                      {currentLanguage == "en" ? findCategoty("Trade")?.en : ""}
+                      {currentLanguage == "ru" ? findCategoty("Trade")?.ru : ""}
+                      {currentLanguage == "tj" ? findCategoty("Trade")?.tj : ""}
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -133,24 +393,38 @@ export default function ProjectsPage() {
               >
                 District
               </label>
-              <Select>
+              <Select
+                value={selectedDistrict}
+                onValueChange={handleDistrictChange}
+              >
                 <SelectTrigger className="w-[300px]">
                   <SelectValue placeholder="" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>District</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                    <SelectItem value="All">
+                      {currentLanguage === "en" ? "All" : ""}
+                      {currentLanguage === "ru" ? "Все" : ""}
+                      {currentLanguage === "tj" ? "Ҳама" : ""}
+                    </SelectItem>
+                    <SelectItem value="1">{getDistrictName(1)}</SelectItem>
+                    <SelectItem value="2">{getDistrictName(2)}</SelectItem>
+                    <SelectItem value="3">{getDistrictName(3)}</SelectItem>
+                    <SelectItem value="4">{getDistrictName(4)}</SelectItem>
+                    <SelectItem value="5">{getDistrictName(5)}</SelectItem>
+                    <SelectItem value="6">{getDistrictName(6)}</SelectItem>
+                    <SelectItem value="7">{getDistrictName(7)}</SelectItem>
+                    <SelectItem value="8">{getDistrictName(8)}</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
-            <button className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]">
-              search
+            <button
+              onClick={resetFilters}
+              className="border border-[#666666] text-[#666666] uppercase px-[35px] py-[7px] rounded-full hover:bg-[#666666] hover:text-[#fff] transition-all active:bg-[#414040]"
+            >
+              reset
             </button>
           </div>
         </section>
@@ -175,7 +449,9 @@ export default function ProjectsPage() {
                       href={`/projects/${news.Id}`}
                       className="text-[22px] font-bold line-clamp-2"
                     >
-                      {news.English?.Name}
+                      {currentLanguage == "en" ? news.English?.Name : ""}
+                      {currentLanguage == "ru" ? news.Russian?.Name : ""}
+                      {currentLanguage == "tj" ? news.Tajik?.Name : ""}
                     </Link>
                     <div className="min-w-full flex items-center justify-between mt-3">
                       {/* <p>{news.Category}</p> */}
@@ -190,7 +466,7 @@ export default function ProjectsPage() {
                           ? findCategoty(news.Category)?.tj
                           : ""}
                       </p>
-                      <p>25.07.2024</p>
+                      {/* <p>25.07.2024</p> */}
                     </div>
                   </div>
                   <div className="news__gradient"></div>

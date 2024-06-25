@@ -129,6 +129,21 @@ export default function NewsTable() {
     getNews();
   }, []);
 
+  const handleCollapseAccordion = async (index: number) => {
+    // setIsCollapsed(!isCollapsed);
+    // setCurrentIndex(index);
+
+    // console.log("index", index);
+
+    // const response = await fetch("http://127.0.0.1:9595/delete/news", {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    // });
+  };
+
   return (
     <div className="my-10">
       <table className="project__table">
@@ -192,9 +207,9 @@ export default function NewsTable() {
                   })}
                   <td
                     className="select-none cursor-pointer h-[60px]"
-                    onClick={() => console.log("trigger")}
+                    onClick={() => handleCollapseAccordion(index)}
                   >
-                    {"🔽"}
+                    Delete
                   </td>
                 </tr>
               );

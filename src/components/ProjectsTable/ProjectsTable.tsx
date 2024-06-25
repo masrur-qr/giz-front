@@ -12,8 +12,15 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { makeData, Person } from "@/makeData";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import { IProject } from "@/types";
+import { Locale } from "@/i18n.config";
 
 //custom sorting logic for one of our enum columns
 const sortStatusFn: SortingFn<Person> = (rowA, rowB, _columnId) => {
@@ -24,15 +31,35 @@ const sortStatusFn: SortingFn<Person> = (rowA, rowB, _columnId) => {
 };
 
 export default function ProjectsTable() {
+  const [currentLanguage, setCurrentLanguage] = useState<Locale>("en");
+
+  useLayoutEffect(() => {
+    const storedLang = (localStorage.getItem("lang") as Locale) || "en";
+    setCurrentLanguage(storedLang);
+  }, []);
+
   const rerender = useReducer(() => ({}), {})[1];
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<any>(null);
 
-  const handleCollapseAccordion = (index: number) => {
-    // setIsCollapsed(!isCollapsed);
-    setCurrentIndex(index);
+  const handleCollapseAccordion = async (row: any) => {
+    console.log(row.original);
 
-    console.log("index", index);
+    // setIsCollapsed(!isCollapsed);
+    // setCurrentIndex(index);
+    // console.log("index", index);
+    const response = await fetch(
+      `http://127.0.0.1:9595/delete/project?projectid=${row.original.Id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+      }
+    );
+
+    const json = await response.json();
+    console.log(json);
   };
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -46,13 +73,93 @@ export default function ProjectsTable() {
         accessorFn: (row) => row.English.Name,
         //this column will sort in ascending order by default since it is a string column
       },
+      // {
+      //   accessorKey: "createdAt",
+      //   header: "Implemented",
+      //   // sortingFn: 'datetime' //make sure table knows this is a datetime column (usually can detect if no null values)
+      // },
       {
-        accessorKey: "createdAt",
-        header: "Implemented",
-        // sortingFn: 'datetime' //make sure table knows this is a datetime column (usually can detect if no null values)
-      },
-      {
-        accessorFn: (row) => row.Location.District,
+        accessorFn: (row) => {
+          if (currentLanguage == "en") {
+            if (row.Location.District == 1) {
+              return "Khorog";
+            }
+            if (row.Location.District == 2) {
+              return "Darvoz";
+            }
+            if (row.Location.District == 3) {
+              return "Vanj";
+            }
+            if (row.Location.District == 4) {
+              return "Rushon";
+            }
+            if (row.Location.District == 5) {
+              return "Shughnon";
+            }
+            if (row.Location.District == 6) {
+              return "Ishkoshim";
+            }
+            if (row.Location.District == 7) {
+              return "Roshtqala";
+            }
+            if (row.Location.District == 8) {
+              return "Murghob";
+            }
+          }
+          if (currentLanguage == "ru") {
+            if (row.Location.District == 1) {
+              return "Хорог";
+            }
+            if (row.Location.District == 2) {
+              return "Дарвоз";
+            }
+            if (row.Location.District == 3) {
+              return "Вандж";
+            }
+            if (row.Location.District == 4) {
+              return "Рушан";
+            }
+            if (row.Location.District == 5) {
+              return "Шугнан";
+            }
+            if (row.Location.District == 6) {
+              return "Ишкашим";
+            }
+            if (row.Location.District == 7) {
+              return "Рошткала";
+            }
+            if (row.Location.District == 8) {
+              return "Мургаб";
+            }
+          }
+          if (currentLanguage == "tj") {
+            if (row.Location.District == 1) {
+              return "Хоруг";
+            }
+            if (row.Location.District == 2) {
+              return "Дарвоз";
+            }
+            if (row.Location.District == 3) {
+              return "Ванч";
+            }
+            if (row.Location.District == 4) {
+              return "Рушон";
+            }
+            if (row.Location.District == 5) {
+              return "Шугнон";
+            }
+            if (row.Location.District == 6) {
+              return "Ишкошим";
+            }
+            if (row.Location.District == 7) {
+              return "Рошткала";
+            }
+            if (row.Location.District == 8) {
+              return "Мургоб";
+            }
+          }
+          // row.Location.District
+        },
         id: "lastName",
         cell: (info) => info.getValue(),
         header: () => <span>District | Town / Village</span>,
@@ -88,8 +195,8 @@ export default function ProjectsTable() {
     []
   );
 
-  const [projectData, setProjectData] = useState([])
-  
+  const [projectData, setProjectData] = useState([]);
+
   const [data, setData] = useState(() => makeData(1_000));
   const refreshData = () => setData(() => makeData(100_000)); //stress test with 100k rows
 
@@ -136,7 +243,7 @@ export default function ProjectsTable() {
   useEffect(() => {
     getProjects();
   }, []);
-  
+
   return (
     <div className="my-10">
       <table className="project__table">
@@ -182,40 +289,36 @@ export default function ProjectsTable() {
           ))}
         </thead>
         <tbody>
-          {table
-            .getRowModel()
-            .rows.slice(0, 10)
-            .map((row, index) => {
-              return (
-                <tr
-                  key={row.id}
-                  className={`${
-                    currentIndex == index
-                      ? "table_td h-[150px]"
-                      : "table_td h-[60px]"
-                  }`}
+          {table.getRowModel().rows.map((row, index) => {
+            return (
+              <tr
+                key={row.id}
+                className={`${
+                  currentIndex == index
+                    ? "table_td h-[150px]"
+                    : "table_td h-[60px]"
+                }`}
+              >
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <td key={cell.id} className="h-[60px]">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+                <td
+                  className="select-none cursor-pointer h-[60px]"
+                  onClick={() => handleCollapseAccordion(row)}
                 >
-                  {row.getVisibleCells().map((cell) => {
-                    return (
-                      <td key={cell.id} className="h-[60px]">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    );
-                  })}
-                  <td
-                    className="select-none cursor-pointer h-[60px]"
-                    onClick={() => handleCollapseAccordion(index)}
-                  >
-                    {currentIndex == index
-                      ? "🔽"
-                      : "🔼"}
-                  </td>
-                </tr>
-              );
-            })}
+                  Delete
+                  {/* {currentIndex == index ? "🔽" : "🔼"} */}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

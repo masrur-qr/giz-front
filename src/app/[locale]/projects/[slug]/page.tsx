@@ -6,6 +6,7 @@ import { news_data } from "@/data/news";
 import { Locale } from "@/i18n.config";
 import { INews, IProject } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useLayoutEffect, useState } from "react";
 
 export default function EachNews({ params }: { params: { slug: string } }) {
@@ -47,6 +48,85 @@ export default function EachNews({ params }: { params: { slug: string } }) {
     return current_categoty;
   };
 
+  let content = "";
+
+  if (currentLanguage == "en") {
+    if (slugNews?.Location?.District == 1) {
+      content = "Khorog";
+    }
+    if (slugNews?.Location?.District == 2) {
+      content = "Darvoz";
+    }
+    if (slugNews?.Location?.District == 3) {
+      content = "Vanj";
+    }
+    if (slugNews?.Location?.District == 4) {
+      content = "Rushon";
+    }
+    if (slugNews?.Location?.District == 5) {
+      content = "Shughnon";
+    }
+    if (slugNews?.Location?.District == 6) {
+      content = "Ishkoshim";
+    }
+    if (slugNews?.Location?.District == 7) {
+      content = "Roshtqala";
+    }
+    if (slugNews?.Location?.District == 8) {
+      content = "Murghob";
+    }
+  } else if (currentLanguage == "ru") {
+    if (slugNews?.Location?.District == 1) {
+      content = "Хорог";
+    }
+    if (slugNews?.Location?.District == 2) {
+      content = "Дарвоз";
+    }
+    if (slugNews?.Location?.District == 3) {
+      content = "Вандж";
+    }
+    if (slugNews?.Location?.District == 4) {
+      content = "Рушан";
+    }
+    if (slugNews?.Location?.District == 5) {
+      content = "Шугнан";
+    }
+    if (slugNews?.Location?.District == 6) {
+      content = "Ишкашим";
+    }
+    if (slugNews?.Location?.District == 7) {
+      content = "Рошткала";
+    }
+    if (slugNews?.Location?.District == 8) {
+      content = "Мургаб";
+    }
+  } else if (currentLanguage == "tj") {
+    if (slugNews?.Location?.District == 1) {
+      content = "Хоруғ";
+    }
+    if (slugNews?.Location?.District == 2) {
+      content = "Дарвоз";
+    }
+    if (slugNews?.Location?.District == 3) {
+      content = "Ванҷ";
+    }
+    if (slugNews?.Location?.District == 4) {
+      content = "Рушон";
+    }
+    if (slugNews?.Location?.District == 5) {
+      content = "Шуғнон";
+    }
+    if (slugNews?.Location?.District == 6) {
+      content = "Ишкошим";
+    }
+    if (slugNews?.Location?.District == 7) {
+      content = "Роштқалъа";
+    }
+    if (slugNews?.Location?.District == 8) {
+      content = "Мурғоб";
+    }
+  }
+
   return (
     <main>
       <div className="wrapper__page">
@@ -78,27 +158,41 @@ export default function EachNews({ params }: { params: { slug: string } }) {
                 : ""}
             </p>
             <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
-              {slugNews?.Location?.District}
+              {content}
+              {/* {slugNews?.Location?.District} */}
               {/* District */}
             </p>
           </div>
           <h1 className="text-[#C30F08] text-[34px] font-bold text-center mt-[100px] mb-[30px]">
-            {currentLanguage == "en"
-              ? slugNews?.English?.Name
-              : slugNews?.Russian?.Name}
+            {currentLanguage == "en" ? slugNews?.English?.Name : ""}
+            {currentLanguage == "ru" ? slugNews?.Russian?.Name : ""}
+            {currentLanguage == "tj" ? slugNews?.Tajik?.Name : ""}
           </h1>
           <p>
-            {currentLanguage == "en"
-              ? slugNews?.English?.Description
-              : slugNews?.Russian?.Description}
+            {currentLanguage == "en" ? slugNews?.English?.Description : ""}
+            {currentLanguage == "ru" ? slugNews?.Russian?.Description : ""}
+            {currentLanguage == "tj" ? slugNews?.Tajik?.Description : ""}
           </p>
           {/* documents */}
-          <h4 className="text-[#8D8D8D] text=[24px] font-bold mt-[74px]">
+          <h4 className="text-[#8D8D8D] text-[24px] font-bold mt-[74px]">
             DOCUMENTS:
           </h4>
+          <div className="mt-5 flex justify-start items-start gap-5">
+            {slugNews?.Links?.map((link: string) => {
+              return (
+                <Link
+                  key={slugNews?.Id + link}
+                  className="text-[#8D8D8D] text-[18px] underline"
+                  href={link}
+                >
+                  {link}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-        <Partners />
         <ImageCarousel data={slugNews?.MediaFiles} />
+        <Partners />
       </div>
     </main>
   );

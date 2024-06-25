@@ -17,7 +17,10 @@ export default function AdminNews() {
             </Link>
           </h3>
           <h3>
-            <Link className="text-[#C30F08] text-[25px] font-bold" href={"/admin-news"}>
+            <Link
+              className="text-[#C30F08] text-[25px] font-bold"
+              href={"/admin-news"}
+            >
               News
             </Link>
           </h3>

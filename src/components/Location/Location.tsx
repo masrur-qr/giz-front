@@ -43,7 +43,7 @@ export default function Location() {
               <SelectItem value="mst">Vanj</SelectItem>
               <SelectItem value="pst">Rushon</SelectItem>
               <SelectItem value="akst">Shughnon</SelectItem>
-              <SelectItem value="hst">Roshtqal'a</SelectItem>
+              <SelectItem value="hst">Roshtqala</SelectItem>
               <SelectItem value="hst">Ishkoshim</SelectItem>
               <SelectItem value="hst">Murghob</SelectItem>
             </SelectGroup>

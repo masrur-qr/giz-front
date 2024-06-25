@@ -13,7 +13,9 @@ export default function About() {
     <section>
       <div className="wrapper__page">
         <h3 className="text-center text-[#C30F08] text-[34px] font-bold uppercase my-[50px]">
-          Tajikistan
+          {`${currentLanguage == "en" ? `Tajikistan` : ``}`}
+          {`${currentLanguage == "ru" ? `Таджикистан` : ``}`}
+          {`${currentLanguage == "tj" ? `Тоҷикистон` : ``}`}
         </h3>
         <div className="flex items-start justify-between">
           <div className="max-w-[415px]">
