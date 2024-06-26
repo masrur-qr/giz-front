@@ -38,7 +38,7 @@ export default function ImageCarousel({ data }: any) {
             return (
               <SwiperSlide key={image?.Title}>
                 <img
-                  src={`http://127.0.0.1:9595/get/static?path=ProjectMedia/${image?.ImageUrl}`}
+                  src={`http://127.0.0.1:9595/get/static?path=ProjectMedia/${image?.image_url}`}
                   className="w-[300px] h-[300px] object-cover rounded-lg"
                 />
               </SwiperSlide>

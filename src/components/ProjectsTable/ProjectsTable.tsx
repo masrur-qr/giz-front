@@ -55,11 +55,13 @@ export default function ProjectsTable() {
           "Content-Type": "application/json",
         },
         method: "DELETE",
+        credentials: "include"
       }
     );
 
     const json = await response.json();
     console.log(json);
+    getProjects()
   };
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -70,7 +72,7 @@ export default function ProjectsTable() {
         accessorKey: "firstName",
         cell: (info) => info.getValue(),
         header: () => <span>Project name</span>,
-        accessorFn: (row) => row.English.Name,
+        accessorFn: (row) => row?.english?.name,
         //this column will sort in ascending order by default since it is a string column
       },
       // {
@@ -81,80 +83,80 @@ export default function ProjectsTable() {
       {
         accessorFn: (row) => {
           if (currentLanguage == "en") {
-            if (row.Location.District == 1) {
+            if (row?.location?.district == 1) {
               return "Khorog";
             }
-            if (row.Location.District == 2) {
+            if (row?.location?.district == 2) {
               return "Darvoz";
             }
-            if (row.Location.District == 3) {
+            if (row?.location?.district == 3) {
               return "Vanj";
             }
-            if (row.Location.District == 4) {
+            if (row?.location?.district == 4) {
               return "Rushon";
             }
-            if (row.Location.District == 5) {
+            if (row?.location?.district == 5) {
               return "Shughnon";
             }
-            if (row.Location.District == 6) {
+            if (row?.location?.district == 6) {
               return "Ishkoshim";
             }
-            if (row.Location.District == 7) {
+            if (row?.location?.district == 7) {
               return "Roshtqala";
             }
-            if (row.Location.District == 8) {
+            if (row?.location?.district == 8) {
               return "Murghob";
             }
           }
           if (currentLanguage == "ru") {
-            if (row.Location.District == 1) {
+            if (row?.location?.district == 1) {
               return "Хорог";
             }
-            if (row.Location.District == 2) {
+            if (row?.location?.district == 2) {
               return "Дарвоз";
             }
-            if (row.Location.District == 3) {
+            if (row?.location?.district == 3) {
               return "Вандж";
             }
-            if (row.Location.District == 4) {
+            if (row?.location?.district == 4) {
               return "Рушан";
             }
-            if (row.Location.District == 5) {
+            if (row?.location?.district == 5) {
               return "Шугнан";
             }
-            if (row.Location.District == 6) {
+            if (row?.location?.district == 6) {
               return "Ишкашим";
             }
-            if (row.Location.District == 7) {
+            if (row?.location?.district == 7) {
               return "Рошткала";
             }
-            if (row.Location.District == 8) {
+            if (row?.location?.district == 8) {
               return "Мургаб";
             }
           }
           if (currentLanguage == "tj") {
-            if (row.Location.District == 1) {
+            if (row?.location?.district == 1) {
               return "Хоруг";
             }
-            if (row.Location.District == 2) {
+            if (row?.location?.district == 2) {
               return "Дарвоз";
             }
-            if (row.Location.District == 3) {
+            if (row?.location?.district == 3) {
               return "Ванч";
             }
-            if (row.Location.District == 4) {
+            if (row?.location?.district == 4) {
               return "Рушон";
             }
-            if (row.Location.District == 5) {
+            if (row?.location?.district == 5) {
               return "Шугнон";
             }
-            if (row.Location.District == 6) {
+            if (row?.location?.district == 6) {
               return "Ишкошим";
             }
-            if (row.Location.District == 7) {
+            if (row?.location?.district == 7) {
               return "Рошткала";
             }
-            if (row.Location.District == 8) {
+            if (row?.location?.district == 8) {
               return "Мургоб";
             }
           }

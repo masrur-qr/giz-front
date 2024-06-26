@@ -34,17 +34,17 @@ export default function NewsTable() {
         accessorKey: "firstName",
         cell: (info) => info.getValue(),
         header: () => <span>News title</span>,
-        accessorFn: (row) => row.English.Name,
+        accessorFn: (row) => row.english.name,
         //this column will sort in ascending order by default since it is a string column
       },
+      // {
+      //   accessorKey: "createdAt",
+      //   header: "Date",
+      //   accessorFn: (row) => row.russian.name,
+      //   // sortingFn: 'datetime' //make sure table knows this is a datetime column (usually can detect if no null values)
+      // },
       {
-        accessorKey: "createdAt",
-        header: "Date",
-        accessorFn: (row) => row.Russian.Name,
-        // sortingFn: 'datetime' //make sure table knows this is a datetime column (usually can detect if no null values)
-      },
-      {
-        accessorFn: (row) => row.Category,
+        accessorFn: (row) => row.category,
         id: "lastName",
         cell: (info) => info.getValue(),
         header: () => <span>Category</span>,
@@ -129,19 +129,26 @@ export default function NewsTable() {
     getNews();
   }, []);
 
-  const handleCollapseAccordion = async (index: number) => {
+  const handleCollapseAccordion = async (row: any) => {
+    console.log(row.original);
+
     // setIsCollapsed(!isCollapsed);
     // setCurrentIndex(index);
-
     // console.log("index", index);
+    const response = await fetch(
+      `http://127.0.0.1:9595/delete/news?newsid=${row.original.Id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+        credentials: "include"
+      }
+    );
 
-    // const response = await fetch("http://127.0.0.1:9595/delete/news", {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    // });
+    const json = await response.json();
+    console.log(json);
+    getNews()
   };
 
   return (
@@ -207,7 +214,7 @@ export default function NewsTable() {
                   })}
                   <td
                     className="select-none cursor-pointer h-[60px]"
-                    onClick={() => handleCollapseAccordion(index)}
+                    onClick={() => handleCollapseAccordion(row)}
                   >
                     Delete
                   </td>

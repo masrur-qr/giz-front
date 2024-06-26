@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const data = JSON.stringify({
+        Login: "Admin",
+        Password: "Admin",
+      });
+
+      const xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+          console.log(this.responseText);
+        }
+      });
+
+      xhr.open("POST", "http://127.0.0.1:9595/");
+      xhr.setRequestHeader("Accept", "*/*");
+      xhr.setRequestHeader(
+        "User-Agent",
+        "Thunder Client (https://www.thunderclient.com)"
+      );
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.send(data);
+    </script>
+  </body>
+</html>

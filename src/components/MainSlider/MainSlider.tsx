@@ -73,7 +73,7 @@ export default function MainSlider() {
               className="h-[450px] child_slider child_slider-1 pb-10 relative"
             >
               <img
-                src={`http://127.0.0.1:9595/get/static?path=Banners/${file?.BannerUrl}`}
+                src={`http://127.0.0.1:9595/get/static?path=Banners/${file?.banner_url}`}
                 alt="Banner"
                 className="absolute w-full h-full object-cover"
               />
@@ -82,24 +82,24 @@ export default function MainSlider() {
                   <p className="font-medium">
                     {/* Social Development */}
                     {currentLanguage == "en"
-                      ? findCategoty(file?.Category)?.en
+                      ? findCategoty(file?.category)?.en
                       : ""}
                     {currentLanguage == "ru"
-                      ? findCategoty(file?.Category)?.ru
+                      ? findCategoty(file?.category)?.ru
                       : ""}
                     {currentLanguage == "tj"
-                      ? findCategoty(file?.Category)?.tj
+                      ? findCategoty(file?.category)?.tj
                       : ""}
                   </p>
                   <h3 className="font-semibold text-2xl mb-3 line-clamp-1">
-                    {currentLanguage == "en" ? file?.English?.Name : ""}
-                    {currentLanguage == "ru" ? file?.Russian?.Name : ""}
-                    {currentLanguage == "tj" ? file?.Tajik?.Name : ""}
+                    {currentLanguage == "en" ? file?.english?.name : ""}
+                    {currentLanguage == "ru" ? file?.russian?.name : ""}
+                    {currentLanguage == "tj" ? file?.tajik?.name : ""}
                   </h3>
                   <p className="line-clamp-2">
-                    {currentLanguage == "en" ? file?.English?.Description : ""}
-                    {currentLanguage == "ru" ? file?.Russian?.Description : ""}
-                    {currentLanguage == "tj" ? file?.Tajik?.Description : ""}
+                    {currentLanguage == "en" ? file?.english?.description : ""}
+                    {currentLanguage == "ru" ? file?.russian?.description : ""}
+                    {currentLanguage == "tj" ? file?.tajik?.description : ""}
                   </p>
                 </div>
               </div>

@@ -211,7 +211,7 @@ export default function IntMap(props: any) {
         {data.map((project: IProject, index) => (
           <Marker
             key={index}
-            position={project?.Location?.Coordinates}
+            position={project?.location?.coordinates}
             // title={project.name_en}
             icon={iconPerson}
             eventHandlers={{
@@ -226,11 +226,11 @@ export default function IntMap(props: any) {
                   width={200}
                   height={200}
                   className="w-full "
-                  src={`http://127.0.0.1:9595/get/static?path=Banners/${project?.BannerUrl}`}
+                  src={`http://127.0.0.1:9595/get/static?path=Banners/${project?.banner_url}`}
                   alt="project"
                 />
                 <div className="">
-                  <h5 className="text-lg">{project?.English?.Name}</h5>
+                  <h5 className="text-lg">{project?.english?.name}</h5>
                   <div className="flex gap-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +244,7 @@ export default function IntMap(props: any) {
                         districtsMap.features.filter((el: any) => {
                           if (
                             el.properties.district ==
-                            project?.Location?.District
+                            project?.location?.district
                           )
                             return el;
                         })[0]?.properties.name

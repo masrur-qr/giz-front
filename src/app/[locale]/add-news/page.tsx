@@ -83,8 +83,8 @@ export default function AddNewsPage() {
       const promises = Array.from(files).map(async (file, index) => {
         let image = await FileREader(file);
         let imageObject = {
-          Title: `image_${index}`,
-          ImageUrl: image,
+          title: `image_${index}`,
+          image_url: image,
         };
         medias.push(imageObject);
       });
@@ -98,22 +98,22 @@ export default function AddNewsPage() {
     links.unshift(defaultLink.current.value);
 
     const data = {
-      Category: selectedOption,
-      English: {
-        Name: englishName.current.value,
-        Description: englishDescription.current.value,
+      category: selectedOption,
+      english: {
+        name: englishName.current.value,
+        description: englishDescription.current.value,
       },
-      Tajik: {
-        Name: tajikName.current.value,
-        Description: tajikDescription.current.value,
+      tajik: {
+        name: tajikName.current.value,
+        description: tajikDescription.current.value,
       },
-      Russian: {
-        Name: russianName.current.value,
-        Description: russianDescription.current.value,
+      russian: {
+        name: russianName.current.value,
+        description: russianDescription.current.value,
       },
-      Links: links,
-      BannerUrl: images.banner,
-      MediaFiles: medias,
+      links: links,
+      banner_url: images.banner,
+      media_files: medias,
     };
 
     console.log(data);
@@ -124,10 +124,17 @@ export default function AddNewsPage() {
       },
       method: "POST",
       body: JSON.stringify(data),
+      credentials: "include",
     });
 
-    // return response.json();
-    router.replace("admin-news");
+    // const jsonData = await response.json();
+    // console.log(jsonData);
+
+    if (response.status == 200) {
+      router.replace("admin-news");
+    } else {
+      console.log("error");
+    }
   };
 
   async function FileREader(File: any) {

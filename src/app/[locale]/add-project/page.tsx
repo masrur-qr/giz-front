@@ -86,8 +86,8 @@ export default function AddProjectPage() {
       const promises = Array.from(files).map(async (file, index) => {
         let image = await FileREader(file);
         let imageObject = {
-          Title: `image_${index}`,
-          ImageUrl: image,
+          title: `image_${index}`,
+          image_url: image,
         };
         medias.push(imageObject);
       });
@@ -95,36 +95,34 @@ export default function AddProjectPage() {
       await Promise.all(promises);
     }
 
-    console.log("uploaded");
-
     const links = inputs.map((input: any) => input.value);
     links.unshift(defaultLink.current.value);
 
     const data = {
-      Category: selectedOption,
-      English: {
+      category: selectedOption,
+      english: {
         Name: englishName.current.value,
         Description: englishDescription.current.value,
       },
-      Tajik: {
+      tajik: {
         Name: tajikName.current.value,
         Description: tajikDescription.current.value,
       },
-      Russian: {
+      russian: {
         Name: russianName.current.value,
         Description: russianDescription.current.value,
       },
-      Links: links,
-      Location: {
-        District: Number(districtOption),
-        Village: town.current.value,
-        Coordinates: [
+      links: links,
+      location: {
+        district: Number(districtOption),
+        village: town.current.value,
+        coordinates: [
           Number(coordinations1.current.value),
           Number(coordinations2.current.value),
         ],
       },
-      BannerUrl: images.banner,
-      MediaFiles: medias,
+      banner_url: images.banner,
+      media_files: medias,
     };
 
     console.log(data);
@@ -135,10 +133,17 @@ export default function AddProjectPage() {
       },
       method: "POST",
       body: JSON.stringify(data),
+      credentials: "include",
     });
 
-    // return response.json();
-    router.replace("admin-projects");
+    // const jsonData = await response.json();
+    // console.log(jsonData);
+
+    if (response.status == 200) {
+      router.replace("admin-projects");
+    } else {
+      console.log("error");
+    }
   };
 
   async function FileREader(File: any) {
@@ -196,42 +201,6 @@ export default function AddProjectPage() {
                 <SelectValue placeholder="Select a Category" />
               </SelectTrigger>
               <SelectContent>
-                {/* <SelectGroup>
-                  <SelectLabel>Russain</SelectLabel>
-                  <SelectItem value="Стартапы">Стартапы</SelectItem>
-                  <SelectItem value="Инновационные проект">
-                    Инновационные проект
-                  </SelectItem>
-                  <SelectItem value="Социальный проект">
-                    Социальный проект
-                  </SelectItem>
-                  <SelectItem value="Технологический проект">
-                    Технологический проект
-                  </SelectItem>
-                  <SelectItem value="Экология">Экология</SelectItem>
-                  <SelectItem value="Образования">Образования</SelectItem>
-                  <SelectItem value="Здравоохранения">
-                    Здравоохранения
-                  </SelectItem>
-                  <SelectItem value="Туризм">Туризм</SelectItem>
-                  <SelectItem value="Культура и искусства">
-                    Культура и искусства
-                  </SelectItem>
-                  <SelectItem value="Сельское хозяйства">
-                    Сельское хозяйства
-                  </SelectItem>
-                  <SelectItem value="Малый и средный бизнес">
-                    Малый и средный бизнес
-                  </SelectItem>
-                  <SelectItem value="Информационные технологии">
-                    Информационные технологии
-                  </SelectItem>
-                  <SelectItem value="Производства и промышленности">
-                    Производства и промышленности
-                  </SelectItem>
-                  <SelectItem value="Услуги">Услуги</SelectItem>
-                  <SelectItem value="Торговля">Торговля</SelectItem>
-                </SelectGroup> */}
                 <SelectGroup>
                   <SelectLabel>Categories</SelectLabel>
                   <SelectItem value="Startups">Startups</SelectItem>
@@ -262,36 +231,6 @@ export default function AddProjectPage() {
                   <SelectItem value="Services">Services</SelectItem>
                   <SelectItem value="Trade">Trade</SelectItem>
                 </SelectGroup>
-                {/* <SelectGroup>
-                  <SelectLabel>Tajik</SelectLabel>
-                  <SelectItem value="Стартапҳо">Стартапҳо</SelectItem>
-                  <SelectItem value="Лоиҳаи инноватсионӣ">
-                    Лоиҳаи инноватсионӣ
-                  </SelectItem>
-                  <SelectItem value="Лоиҳаи иҷтимоӣ">Лоиҳаи иҷтимоӣ</SelectItem>
-                  <SelectItem value="Лоиҳаи технологӣ">
-                    Лоиҳаи технологӣ
-                  </SelectItem>
-                  <SelectItem value="Экология">Экология</SelectItem>
-                  <SelectItem value="Маориф">Маориф</SelectItem>
-                  <SelectItem value="Тандурустӣ">Тандурустӣ</SelectItem>
-                  <SelectItem value="Туризм">Туризм</SelectItem>
-                  <SelectItem value="Фарҳанг ва санъат">
-                    Фарҳанг ва санъат
-                  </SelectItem>
-                  <SelectItem value="Хоҷагии қишлоқ">Хоҷагии қишлоқ</SelectItem>
-                  <SelectItem value="Соҳибкории хурд ва миёна">
-                    Соҳибкории хурд ва миёна
-                  </SelectItem>
-                  <SelectItem value="Технологияи иттилоотӣ">
-                    Технологияи иттилоотӣ
-                  </SelectItem>
-                  <SelectItem value="Истехсолот ва саноат">
-                    Истехсолот ва саноат
-                  </SelectItem>
-                  <SelectItem value="Хизматрасонӣ">Хизматрасонӣ</SelectItem>
-                  <SelectItem value="Савдо">Савдо</SelectItem>
-                </SelectGroup> */}
               </SelectContent>
             </Select>
           </div>

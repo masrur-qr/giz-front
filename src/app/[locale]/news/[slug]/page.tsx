@@ -67,7 +67,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
         <div className="my-12">
           <img
             // src={slugNews?.bannerUrl}
-            src={`http://127.0.0.1:9595/get/static?path=Banners/${slugNews?.BannerUrl}`}
+            src={`http://127.0.0.1:9595/get/static?path=Banners/${slugNews?.banner_url}`}
             alt="currentNews"
             className="w-full h-[450px] object-cover"
           />
@@ -78,13 +78,13 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
               {/* {slugNews?.Category} */}
               {currentLanguage == "en"
-                ? findCategoty(slugNews?.Category)?.en
+                ? findCategoty(slugNews?.category)?.en
                 : ""}
               {currentLanguage == "ru"
-                ? findCategoty(slugNews?.Category)?.ru
+                ? findCategoty(slugNews?.category)?.ru
                 : ""}
               {currentLanguage == "tj"
-                ? findCategoty(slugNews?.Category)?.tj
+                ? findCategoty(slugNews?.category)?.tj
                 : ""}
             </p>
             {/* <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
@@ -92,29 +92,38 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             </p> */}
           </div>
           <h1 className="text-[#C30F08] text-[34px] font-bold text-center mt-[100px] mb-[30px]">
-            {currentLanguage == "en" ? slugNews?.English?.Name : ""}
-            {currentLanguage == "ru" ? slugNews?.Russian?.Name : ""}
-            {currentLanguage == "tj" ? slugNews?.Tajik?.Name : ""}
+            {currentLanguage == "en" ? slugNews?.english?.name : ""}
+            {currentLanguage == "ru" ? slugNews?.russian?.name : ""}
+            {currentLanguage == "tj" ? slugNews?.tajik?.name : ""}
           </h1>
           <p>
-            {currentLanguage == "en" ? slugNews?.English?.Description : ""}
-            {currentLanguage == "ru" ? slugNews?.Russian?.Description : ""}
-            {currentLanguage == "tj" ? slugNews?.Tajik?.Description : ""}
+            {currentLanguage == "en" ? slugNews?.english?.description : ""}
+            {currentLanguage == "ru" ? slugNews?.russian?.description : ""}
+            {currentLanguage == "tj" ? slugNews?.tajik?.description : ""}
           </p>
           {/* documents */}
           <h4 className="text-[#8D8D8D] text=[24px] font-bold mt-[74px]">
             DOCUMENTS:
           </h4>
           <div className="mt-5 flex justify-start items-start gap-5">
-            {slugNews?.Links?.map((link: string) => {
+            {slugNews?.links?.map((link: string) => {
               return (
-                <Link
+                <a
                   key={slugNews?.Id + link}
+                  href={`https://${link}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#8D8D8D] text-[18px] underline"
-                  href={link}
                 >
                   {link}
-                </Link>
+                </a>
+                // <Link
+                //   key={slugNews?.Id + link}
+                //   className="text-[#8D8D8D] text-[18px] underline"
+                //   href={link}
+                // >
+                //   {link}
+                // </Link>
               );
             })}
           </div>
@@ -138,12 +147,12 @@ export default function EachNews({ params }: { params: { slug: string } }) {
               modules={[EffectCoverflow, Pagination]}
               className="mySwiper"
             >
-              {slugNews?.MediaFiles?.length > 1 ? (
-                slugNews?.MediaFiles?.map((image: any) => {
+              {slugNews?.media_files?.length > 1 ? (
+                slugNews?.media_files?.map((image: any) => {
                   return (
                     <SwiperSlide key={image?.Title}>
                       <img
-                        src={`http://127.0.0.1:9595/get/static?path=NewsMedia/${image?.ImageUrl}`}
+                        src={`http://127.0.0.1:9595/get/static?path=NewsMedia/${image?.image_url}`}
                         className="w-[300px] h-[300px] object-cover rounded-lg"
                       />
                     </SwiperSlide>

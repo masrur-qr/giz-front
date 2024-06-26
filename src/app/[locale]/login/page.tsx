@@ -12,8 +12,8 @@ export default function LoginPage() {
   const passwordRef = useRef<any>(null);
 
   const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault()
-    
+    event.preventDefault();
+
     const data = {
       Login: loginRef.current.value,
       Password: passwordRef.current.value,
@@ -25,13 +25,16 @@ export default function LoginPage() {
       },
       method: "POST",
       body: JSON.stringify(data),
+      credentials: "include",
     });
 
     const json = await response.json();
     console.log(json);
 
     if (response.status == 200) {
-      // router.replace("admin-projects");
+      router.replace("admin-projects");
+      console.log(document.cookie);
+      console.log(document.cookie.split(" ")[1]);
     } else {
       console.log("error");
     }

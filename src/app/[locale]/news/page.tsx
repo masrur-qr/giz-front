@@ -64,19 +64,19 @@ export default function NewsPage() {
       const lowerCaseQuery = searchQuery.toLowerCase();
       filtered = filtered.filter(
         (news: INews) =>
-          news.Category.toLowerCase().includes(lowerCaseQuery) ||
-          news.English.Name.toLowerCase().includes(lowerCaseQuery) ||
-          news.English.Description.toLowerCase().includes(lowerCaseQuery) ||
-          news.Tajik.Name.toLowerCase().includes(lowerCaseQuery) ||
-          news.Tajik.Description.toLowerCase().includes(lowerCaseQuery) ||
-          news.Russian.Name.toLowerCase().includes(lowerCaseQuery) ||
-          news.Russian.Description.toLowerCase().includes(lowerCaseQuery)
+          news.category.toLowerCase().includes(lowerCaseQuery) ||
+          news.english.name.toLowerCase().includes(lowerCaseQuery) ||
+          news.english.description.toLowerCase().includes(lowerCaseQuery) ||
+          news.tajik.name.toLowerCase().includes(lowerCaseQuery) ||
+          news.tajik.description.toLowerCase().includes(lowerCaseQuery) ||
+          news.russian.name.toLowerCase().includes(lowerCaseQuery) ||
+          news.russian.description.toLowerCase().includes(lowerCaseQuery)
       );
     }
 
     if (selectedCategory && selectedCategory !== "All") {
       filtered = filtered.filter((news: INews) =>
-        news.Category.toLowerCase().includes(selectedCategory.toLowerCase())
+        news.category.toLowerCase().includes(selectedCategory.toLowerCase())
       );
     }
 
@@ -363,8 +363,8 @@ export default function NewsPage() {
                   className="w-[438px] h-[321px] border relative flex flex-col justify-end items-start rounded-[13px] px-[30px] py-[20px] news__card"
                 >
                   <img
-                    src={`http://127.0.0.1:9595/get/static?path=Banners/${news.BannerUrl}`}
-                    alt={news.BannerUrl}
+                    src={`http://127.0.0.1:9595/get/static?path=Banners/${news.banner_url}`}
+                    alt={news.banner_url}
                     width={438}
                     height={321}
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-[13px]"
@@ -374,21 +374,21 @@ export default function NewsPage() {
                       href={`/news/${news.Id}`}
                       className="text-[22px] font-bold line-clamp-2"
                     >
-                      {currentLanguage == "en" ? news.English?.Name : ""}
-                      {currentLanguage == "ru" ? news.Russian?.Name : ""}
-                      {currentLanguage == "tj" ? news.Tajik?.Name : ""}
+                      {currentLanguage == "en" ? news.english?.name : ""}
+                      {currentLanguage == "ru" ? news.russian?.name : ""}
+                      {currentLanguage == "tj" ? news.tajik?.name : ""}
                     </Link>
                     <div className="min-w-full flex items-center justify-between mt-3">
                       {/* <p>{news.Category}</p> */}
                       <p>
                         {currentLanguage == "en"
-                          ? findCategoty(news.Category)?.en
+                          ? findCategoty(news.category)?.en
                           : ""}
                         {currentLanguage == "ru"
-                          ? findCategoty(news.Category)?.ru
+                          ? findCategoty(news.category)?.ru
                           : ""}
                         {currentLanguage == "tj"
-                          ? findCategoty(news.Category)?.tj
+                          ? findCategoty(news.category)?.tj
                           : ""}
                       </p>
                       {/* <p>25.07.2024</p> */}

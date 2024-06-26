@@ -1,7 +1,7 @@
 import { INews } from "@/types";
 import testImage from "../assets/images/image 30.png"
 
-export const news_data: INews[] = [
+export const news_data = [
   {
     id: "1",
     bannerUrl: testImage,

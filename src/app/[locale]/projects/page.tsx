@@ -44,25 +44,25 @@ export default function ProjectsPage() {
       const lowerCaseQuery = searchQuery.toLowerCase();
       filtered = filtered.filter(
         (project: IProject) =>
-          project.English.Name.toLowerCase().includes(lowerCaseQuery) ||
-          project.English.Description.toLowerCase().includes(lowerCaseQuery) ||
-          project.Tajik.Name.toLowerCase().includes(lowerCaseQuery) ||
-          project.Tajik.Description.toLowerCase().includes(lowerCaseQuery) ||
-          project.Russian.Name.toLowerCase().includes(lowerCaseQuery) ||
-          project.Russian.Description.toLowerCase().includes(lowerCaseQuery)
+          project.english.name.toLowerCase().includes(lowerCaseQuery) ||
+          project.english.description.toLowerCase().includes(lowerCaseQuery) ||
+          project.tajik.name.toLowerCase().includes(lowerCaseQuery) ||
+          project.tajik.description.toLowerCase().includes(lowerCaseQuery) ||
+          project.russian.name.toLowerCase().includes(lowerCaseQuery) ||
+          project.russian.description.toLowerCase().includes(lowerCaseQuery)
       );
     }
 
     if (selectedDistrict && selectedDistrict !== "All") {
       filtered = filtered.filter(
         (project: IProject) =>
-          project.Location.District === parseInt(selectedDistrict)
+          project.location.district === parseInt(selectedDistrict)
       );
     }
 
     if (selectedCategory && selectedCategory !== "All") {
       filtered = filtered.filter((project: IProject) =>
-        project.Category.toLowerCase().includes(selectedCategory.toLowerCase())
+        project.category.toLowerCase().includes(selectedCategory.toLowerCase())
       );
     }
 
@@ -438,8 +438,8 @@ export default function ProjectsPage() {
                   className="w-[438px] h-[321px] border relative flex flex-col justify-end items-start rounded-[13px] px-[30px] py-[20px] news__card"
                 >
                   <img
-                    src={`http://127.0.0.1:9595/get/static?path=Banners/${news.BannerUrl}`}
-                    alt={news.BannerUrl}
+                    src={`http://127.0.0.1:9595/get/static?path=Banners/${news.banner_url}`}
+                    alt={news.banner_url}
                     width={438}
                     height={321}
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-[13px]"
@@ -449,21 +449,21 @@ export default function ProjectsPage() {
                       href={`/projects/${news.Id}`}
                       className="text-[22px] font-bold line-clamp-2"
                     >
-                      {currentLanguage == "en" ? news.English?.Name : ""}
-                      {currentLanguage == "ru" ? news.Russian?.Name : ""}
-                      {currentLanguage == "tj" ? news.Tajik?.Name : ""}
+                      {currentLanguage == "en" ? news.english?.name : ""}
+                      {currentLanguage == "ru" ? news.russian?.name : ""}
+                      {currentLanguage == "tj" ? news.tajik?.name : ""}
                     </Link>
                     <div className="min-w-full flex items-center justify-between mt-3">
                       {/* <p>{news.Category}</p> */}
                       <p>
                         {currentLanguage == "en"
-                          ? findCategoty(news.Category)?.en
+                          ? findCategoty(news.category)?.en
                           : ""}
                         {currentLanguage == "ru"
-                          ? findCategoty(news.Category)?.ru
+                          ? findCategoty(news.category)?.ru
                           : ""}
                         {currentLanguage == "tj"
-                          ? findCategoty(news.Category)?.tj
+                          ? findCategoty(news.category)?.tj
                           : ""}
                       </p>
                       {/* <p>25.07.2024</p> */}

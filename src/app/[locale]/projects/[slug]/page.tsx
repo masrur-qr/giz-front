@@ -51,78 +51,78 @@ export default function EachNews({ params }: { params: { slug: string } }) {
   let content = "";
 
   if (currentLanguage == "en") {
-    if (slugNews?.Location?.District == 1) {
+    if (slugNews?.location?.district == 1) {
       content = "Khorog";
     }
-    if (slugNews?.Location?.District == 2) {
+    if (slugNews?.location?.district == 2) {
       content = "Darvoz";
     }
-    if (slugNews?.Location?.District == 3) {
+    if (slugNews?.location?.district == 3) {
       content = "Vanj";
     }
-    if (slugNews?.Location?.District == 4) {
+    if (slugNews?.location?.district == 4) {
       content = "Rushon";
     }
-    if (slugNews?.Location?.District == 5) {
+    if (slugNews?.location?.district == 5) {
       content = "Shughnon";
     }
-    if (slugNews?.Location?.District == 6) {
+    if (slugNews?.location?.district == 6) {
       content = "Ishkoshim";
     }
-    if (slugNews?.Location?.District == 7) {
+    if (slugNews?.location?.district == 7) {
       content = "Roshtqala";
     }
-    if (slugNews?.Location?.District == 8) {
+    if (slugNews?.location?.district == 8) {
       content = "Murghob";
     }
   } else if (currentLanguage == "ru") {
-    if (slugNews?.Location?.District == 1) {
+    if (slugNews?.location?.district == 1) {
       content = "Хорог";
     }
-    if (slugNews?.Location?.District == 2) {
+    if (slugNews?.location?.district == 2) {
       content = "Дарвоз";
     }
-    if (slugNews?.Location?.District == 3) {
+    if (slugNews?.location?.district == 3) {
       content = "Вандж";
     }
-    if (slugNews?.Location?.District == 4) {
+    if (slugNews?.location?.district == 4) {
       content = "Рушан";
     }
-    if (slugNews?.Location?.District == 5) {
+    if (slugNews?.location?.district == 5) {
       content = "Шугнан";
     }
-    if (slugNews?.Location?.District == 6) {
+    if (slugNews?.location?.district == 6) {
       content = "Ишкашим";
     }
-    if (slugNews?.Location?.District == 7) {
+    if (slugNews?.location?.district == 7) {
       content = "Рошткала";
     }
-    if (slugNews?.Location?.District == 8) {
+    if (slugNews?.location?.district == 8) {
       content = "Мургаб";
     }
   } else if (currentLanguage == "tj") {
-    if (slugNews?.Location?.District == 1) {
+    if (slugNews?.location?.district == 1) {
       content = "Хоруғ";
     }
-    if (slugNews?.Location?.District == 2) {
+    if (slugNews?.location?.district == 2) {
       content = "Дарвоз";
     }
-    if (slugNews?.Location?.District == 3) {
+    if (slugNews?.location?.district == 3) {
       content = "Ванҷ";
     }
-    if (slugNews?.Location?.District == 4) {
+    if (slugNews?.location?.district == 4) {
       content = "Рушон";
     }
-    if (slugNews?.Location?.District == 5) {
+    if (slugNews?.location?.district == 5) {
       content = "Шуғнон";
     }
-    if (slugNews?.Location?.District == 6) {
+    if (slugNews?.location?.district == 6) {
       content = "Ишкошим";
     }
-    if (slugNews?.Location?.District == 7) {
+    if (slugNews?.location?.district == 7) {
       content = "Роштқалъа";
     }
-    if (slugNews?.Location?.District == 8) {
+    if (slugNews?.location?.district == 8) {
       content = "Мурғоб";
     }
   }
@@ -137,7 +137,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             className="w-full h-[450px] object-cover"
           /> */}
           <img
-            src={`http://127.0.0.1:9595/get/static?path=Banners/${slugNews?.BannerUrl}`}
+            src={`http://127.0.0.1:9595/get/static?path=Banners/${slugNews?.banner_url}`}
             alt="currentNews"
             className="w-full h-[450px] object-cover"
           />
@@ -148,13 +148,13 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
               {/* {slugNews?.Category} */}
               {currentLanguage == "en"
-                ? findCategoty(slugNews?.Category)?.en
+                ? findCategoty(slugNews?.category)?.en
                 : ""}
               {currentLanguage == "ru"
-                ? findCategoty(slugNews?.Category)?.ru
+                ? findCategoty(slugNews?.category)?.ru
                 : ""}
               {currentLanguage == "tj"
-                ? findCategoty(slugNews?.Category)?.tj
+                ? findCategoty(slugNews?.category)?.tj
                 : ""}
             </p>
             <p className="px-6 py-3 bg-[#C0C0C0] text-white rounded-[6px]">
@@ -164,34 +164,36 @@ export default function EachNews({ params }: { params: { slug: string } }) {
             </p>
           </div>
           <h1 className="text-[#C30F08] text-[34px] font-bold text-center mt-[100px] mb-[30px]">
-            {currentLanguage == "en" ? slugNews?.English?.Name : ""}
-            {currentLanguage == "ru" ? slugNews?.Russian?.Name : ""}
-            {currentLanguage == "tj" ? slugNews?.Tajik?.Name : ""}
+            {currentLanguage == "en" ? slugNews?.english?.name : ""}
+            {currentLanguage == "ru" ? slugNews?.russian?.name : ""}
+            {currentLanguage == "tj" ? slugNews?.tajik?.name : ""}
           </h1>
           <p>
-            {currentLanguage == "en" ? slugNews?.English?.Description : ""}
-            {currentLanguage == "ru" ? slugNews?.Russian?.Description : ""}
-            {currentLanguage == "tj" ? slugNews?.Tajik?.Description : ""}
+            {currentLanguage == "en" ? slugNews?.english?.description : ""}
+            {currentLanguage == "ru" ? slugNews?.russian?.description : ""}
+            {currentLanguage == "tj" ? slugNews?.tajik?.description : ""}
           </p>
           {/* documents */}
           <h4 className="text-[#8D8D8D] text-[24px] font-bold mt-[74px]">
             DOCUMENTS:
           </h4>
           <div className="mt-5 flex justify-start items-start gap-5">
-            {slugNews?.Links?.map((link: string) => {
+            {slugNews?.links?.map((link: string) => {
               return (
-                <Link
+                <a
                   key={slugNews?.Id + link}
+                  href={`https://${link}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[#8D8D8D] text-[18px] underline"
-                  href={link}
                 >
                   {link}
-                </Link>
+                </a>
               );
             })}
           </div>
         </div>
-        <ImageCarousel data={slugNews?.MediaFiles} />
+        <ImageCarousel data={slugNews?.media_files} />
         <Partners />
       </div>
     </main>
