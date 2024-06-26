@@ -32,8 +32,8 @@ export default function NewsList() {
             className="w-[438px] h-[321px] border relative flex flex-col justify-end items-start rounded-[13px] px-[30px] py-[20px] news__card"
           >
             <img
-              src={`http://127.0.0.1:9595/get/static?path=Banners/${news.bannerUrl}`}
-              alt={news.bannerUrl}
+              src={`http://127.0.0.1:9595/get/static?path=Banners/${news.banner_url}`}
+              alt={news.banner_url}
               width={438}
               height={321}
               className="absolute top-0 left-0 w-full h-full object-cover rounded-[13px]"
