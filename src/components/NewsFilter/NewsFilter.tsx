@@ -39,7 +39,7 @@ export default function NewsFilter() {
 
   async function getNews() {
     try {
-      const response = await fetch("http://127.0.0.1:9595/get/news");
+      const response = await fetch("https://back.aegbao.tj/get/news");
       const data = await response.json();
       setData(data);
       console.log(data);

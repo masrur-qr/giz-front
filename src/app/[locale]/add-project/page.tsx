@@ -127,7 +127,7 @@ export default function AddProjectPage() {
 
     console.log(data);
 
-    const response = await fetch("http://127.0.0.1:9595/add/project", {
+    const response = await fetch("https://back.aegbao.tj/add/project", {
       headers: {
         "Content-Type": "application/json",
       },

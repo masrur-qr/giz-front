@@ -49,7 +49,7 @@ export default function ProjectsTable() {
     // setCurrentIndex(index);
     // console.log("index", index);
     const response = await fetch(
-      `http://127.0.0.1:9595/delete/project?projectid=${row.original.Id}`,
+      `https://back.aegbao.tj/delete/project?projectid=${row.original.Id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -228,7 +228,7 @@ export default function ProjectsTable() {
   // console.log(table.getState().sorting);
 
   function getProjects() {
-    fetch("http://127.0.0.1:9595/get/project")
+    fetch("https://back.aegbao.tj/get/project")
       .then((res) => {
         // console.log(res);
         return res.json();

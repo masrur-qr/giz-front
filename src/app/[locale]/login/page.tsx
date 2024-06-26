@@ -19,7 +19,7 @@ export default function LoginPage() {
       Password: passwordRef.current.value,
     };
 
-    const response = await fetch("http://127.0.0.1:9595/login", {
+    const response = await fetch("https://back.aegbao.tj/login", {
       headers: {
         "Content-Type": "application/json",
       },

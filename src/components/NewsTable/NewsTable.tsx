@@ -111,7 +111,7 @@ export default function NewsTable() {
   // console.log(table.getState().sorting);
 
   function getNews() {
-    fetch("http://127.0.0.1:9595/get/news")
+    fetch("https://back.aegbao.tj/get/news")
       .then((res) => {
         // console.log(res);
         return res.json();
@@ -136,7 +136,7 @@ export default function NewsTable() {
     // setCurrentIndex(index);
     // console.log("index", index);
     const response = await fetch(
-      `http://127.0.0.1:9595/delete/news?newsid=${row.original.Id}`,
+      `https://back.aegbao.tj/delete/news?newsid=${row.original.Id}`,
       {
         headers: {
           "Content-Type": "application/json",

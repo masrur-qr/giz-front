@@ -26,7 +26,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
 
   async function getNews() {
     try {
-      const response = await fetch("http://127.0.0.1:9595/get/news");
+      const response = await fetch("https://back.aegbao.tj/get/news");
       const data = await response.json();
       setData(data);
       console.log(data);
@@ -67,7 +67,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
         <div className="my-12">
           <img
             // src={slugNews?.bannerUrl}
-            src={`http://127.0.0.1:9595/get/static?path=Banners/${slugNews?.banner_url}`}
+            src={`https://back.aegbao.tj/get/static?path=Banners/${slugNews?.banner_url}`}
             alt="currentNews"
             className="w-full h-[450px] object-cover"
           />
@@ -152,7 +152,7 @@ export default function EachNews({ params }: { params: { slug: string } }) {
                   return (
                     <SwiperSlide key={image?.Title}>
                       <img
-                        src={`http://127.0.0.1:9595/get/static?path=NewsMedia/${image?.image_url}`}
+                        src={`https://back.aegbao.tj/get/static?path=NewsMedia/${image?.image_url}`}
                         className="w-[300px] h-[300px] object-cover rounded-lg"
                       />
                     </SwiperSlide>
